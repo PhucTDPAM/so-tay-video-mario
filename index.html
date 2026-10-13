@@ -90,6 +90,16 @@ footer b{color:var(--accent)}
 .mode button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:var(--accent-ink)}
 .mode button[aria-selected="true"] span{color:rgba(26,13,2,.75)}
 body[data-mode="skill"] .only-manual,body[data-mode="manual"] .only-skill{display:none!important}
+.step-head{cursor:pointer;user-select:none;border-radius:10px}
+.step-head:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.step-head .chev{margin-left:auto;flex:none;width:30px;height:30px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);transition:transform .2s,background .2s}
+.step-head:hover .chev{background:var(--accent-soft)}
+.step:not(.collapsed) .chev{transform:rotate(180deg)}
+.step.collapsed{gap:0;padding-block:16px}
+.step.collapsed>.step-body{display:none}
+.step-body{display:flex;flex-direction:column;gap:12px;min-width:0}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.toolbar button{font-weight:600}
 </style>
 </head>
 <body>
@@ -150,6 +160,7 @@ body[data-mode="skill"] .only-manual,body[data-mode="manual"] .only-skill{displa
 </nav>
 
 <main>
+<div class="toolbar"><button type="button" id="openAll">Mở hết chi tiết</button><button type="button" id="closeAll">Thu gọn hết</button></div>
 <h2>Giai đoạn 1 · Học mẫu</h2>
 
 <section class="step" id="b1">
@@ -731,6 +742,15 @@ document.querySelectorAll('.n[data-s]').forEach(n=>{n.textContent=m==='skill'?n.
 try{history.replaceState(null,'',m==='manual'?'#thu-cong':'#claude-skill')}catch(e){}}
 document.querySelectorAll('.mode button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
 setMode(location.hash==='#thu-cong'?'manual':'skill');
+document.querySelectorAll('section.step').forEach(st=>{const h=st.querySelector(':scope>.step-head');if(!h)return;
+const body=document.createElement('div');body.className='step-body';[...st.children].filter(c=>c!==h).forEach(c=>body.appendChild(c));st.appendChild(body);
+const ch=document.createElement('span');ch.className='chev';ch.setAttribute('aria-hidden','true');ch.textContent='▾';h.appendChild(ch);
+h.setAttribute('role','button');h.tabIndex=0;st.classList.add('collapsed');h.setAttribute('aria-expanded','false');
+const tg=()=>{const c=st.classList.toggle('collapsed');h.setAttribute('aria-expanded',!c)};
+h.addEventListener('click',tg);h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tg()}})});
+const setAll=open=>document.querySelectorAll('section.step').forEach(st=>{const h=st.querySelector(':scope>.step-head');if(!h)return;st.classList.toggle('collapsed',!open);h.setAttribute('aria-expanded',open)});
+document.getElementById('openAll').onclick=()=>setAll(true);document.getElementById('closeAll').onclick=()=>setAll(false);
+document.querySelectorAll('nav.toc a').forEach(a=>a.addEventListener('click',()=>{const t=document.querySelector(a.getAttribute('href'));const st=t&&(t.closest('section.step')||t);if(st&&st.classList.contains('collapsed')){st.classList.remove('collapsed');const h=st.querySelector(':scope>.step-head');if(h)h.setAttribute('aria-expanded','true')}}));
 </script>
 </body>
 </html>
