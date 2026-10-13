@@ -103,6 +103,8 @@ footer b{color:var(--accent)}
 
 
 <nav class="toc" aria-label="Mục lục">
+<div class="ph">Dùng nhanh</div>
+<a href="#skill"><span>⚡</span>Gọi skill</a>
 <div class="ph">Học mẫu</div>
 <a href="#b1"><span>1</span>Chọn video mẫu</a>
 <a href="#b2"><span>2</span>Phân tích bằng Gemini</a>
@@ -127,6 +129,48 @@ footer b{color:var(--accent)}
 </nav>
 
 <main>
+<h2 id="skill">Dùng nhanh · Gọi skill trong Claude</h2>
+<section class="step">
+<div class="step-head"><div class="n">⚡</div><div><h3>Gọi skill video-mario-ai</h3><div class="meta"><span class="chip"><b>Claude</b></span><span class="chip">Thay cho bước 3-6</span></div></div></div>
+<ol>
+<li>Mở chat mới trong Claude, gõ <code>/video-mario-ai</code> rồi viết yêu cầu ngay sau đó (mẫu bên dưới).</li>
+<li>Đính kèm tệp cần thiết: tệp phân tích Gemini (.txt), ảnh chụp cảnh, bảng lượt xem.</li>
+<li>Ghi rõ <b>Muse</b> hoặc <b>Flow</b> để Claude không phải hỏi lại. Thêm <b>"làm thẳng"</b> nếu không cần duyệt kịch bản.</li>
+<li>Gõ <code>/</code> mà không thấy tên skill: skill chưa được lưu. Cài lại từ kho GitHub <code>claude-skills</code>.</li>
+</ol>
+<div class="tabs" role="tablist">
+<button type="button" role="tab" id="tabS1" aria-selected="true" aria-controls="pS1">Phân tích cả kênh</button>
+<button type="button" role="tab" id="tabS2" aria-selected="false" aria-controls="pS2">Cover 1 video</button>
+<button type="button" role="tab" id="tabS3" aria-selected="false" aria-controls="pS3">Rút công thức</button>
+<button type="button" role="tab" id="tabS4" aria-selected="false" aria-controls="pS4">Từ tình huống</button>
+<button type="button" role="tab" id="tabS5" aria-selected="false" aria-controls="pS5">Sửa sau chạy thử</button>
+</div>
+<div id="pS1" role="tabpanel" aria-labelledby="tabS1" style="display:flex;flex-direction:column;gap:10px">
+<div class="prompt"><div class="lab"><span>Gọi skill · phân tích cả kênh</span><button type="button" data-copy>Sao chép</button></div>
+<pre>/video-mario-ai Phân tích cả kênh [TÊN KÊNH]. Đính kèm [SỐ] tệp tóm tắt kịch bản (v01.txt...) và bảng lượt xem. Cho tôi bản đồ công thức của kênh, cái gì ăn view và 5 tình huống mới cho nhóm.</pre></div>
+<p class="mute">Tệp tóm tắt lấy từ câu lệnh Gemini ở bước 3, thẻ "Phân tích cả kênh".</p>
+</div>
+<div id="pS2" role="tabpanel" aria-labelledby="tabS2" hidden style="flex-direction:column;gap:10px">
+<div class="prompt"><div class="lab"><span>Gọi skill · cover 1 video</span><button type="button" data-copy>Sao chép</button></div>
+<pre>/video-mario-ai Cover video [ĐƯỜNG DẪN] ([LƯỢT XEM] lượt xem) thành tập [3-5] phút cho [Muse / Flow]. Đính kèm tệp phân tích Gemini. Giữ khung, viết mới nhân vật, sự kiện, thoại. Cho tôi bảng đối chiếu trước.</pre></div>
+<p class="mute">Tệp phân tích lấy từ câu lệnh Gemini "phân tích video" ở bước 2.</p>
+</div>
+<div id="pS3" role="tabpanel" aria-labelledby="tabS3" hidden style="flex-direction:column;gap:10px">
+<div class="prompt"><div class="lab"><span>Gọi skill · rút công thức 1 video</span><button type="button" data-copy>Sao chép</button></div>
+<pre>/video-mario-ai Rút công thức video [ĐƯỜNG DẪN]. Đính kèm tệp phân tích Gemini và bộ ảnh chụp cảnh. So với công thức A và B của nhóm.</pre></div>
+</div>
+<div id="pS4" role="tabpanel" aria-labelledby="tabS4" hidden style="flex-direction:column;gap:10px">
+<div class="prompt"><div class="lab"><span>Gọi skill · đề xuất tình huống</span><button type="button" data-copy>Sao chép</button></div>
+<pre>/video-mario-ai Đề xuất 5 tình huống theo công thức [A / B], nhân vật chính [TÊN]. Không trùng các tập đã làm: [TÊN CÁC TẬP].</pre></div>
+<div class="prompt"><div class="lab"><span>Gọi skill · làm thẳng 1 tập</span><button type="button" data-copy>Sao chép</button></div>
+<pre>/video-mario-ai Làm thẳng tập [3] phút cho [Muse / Flow]: [MÔ TẢ TÌNH HUỐNG 1-2 CÂU].</pre></div>
+</div>
+<div id="pS5" role="tabpanel" aria-labelledby="tabS5" hidden style="flex-direction:column;gap:10px">
+<div class="prompt"><div class="lab"><span>Gọi skill · sửa mẫu sau chạy thử</span><button type="button" data-copy>Sao chép</button></div>
+<pre>/video-mario-ai Tập [TÊN] chạy thử [SỐ] cảnh trên [Muse / Flow] bị lỗi: [MÔ TẢ LỖI]. Đính kèm kết quả. Sửa mẫu câu lệnh cho cả bộ và xuất lại đủ tệp.</pre></div>
+</div>
+<div class="out">Đầu ra: Claude tự đi tiếp đến bước 6, trả về tệp câu lệnh cho Muse (muse-video, muse-anh, dung-phim) hoặc Flow (mario-studio). Sau đó làm tiếp từ bước 7.</div>
+</section>
 <h2>Giai đoạn 1 · Học mẫu</h2>
 
 <section class="step" id="b1">
