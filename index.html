@@ -3,71 +3,110 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sổ tay sản xuất video Mario</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<title>Video AI</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap">
 <style>
-/* Bố cục: cột mục lục 12 bước dính bên trái, nội dung từng bước bên phải; mỗi câu lệnh một khối có nút sao chép */
-:root{--bg:#f2f5f1;--card:#ffffff;--fg:#18211a;--mute:#5a675d;--line:#d3dcd3;--accent:#1d7a3c;--accent-soft:#e3f1e7;--code:#edf2ec;--warn:#9a4a10;--warn-soft:#fbeee2;
---sans:"Be Vietnam Pro",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111612;--card:#19201a;--fg:#e5ebe5;--mute:#98a69b;--line:#2c372e;--accent:#5cc27e;--accent-soft:#1d2e22;--code:#212a23;--warn:#f0a46a;--warn-soft:#33251a;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#111612;--card:#19201a;--fg:#e5ebe5;--mute:#98a69b;--line:#2c372e;--accent:#5cc27e;--accent-soft:#1d2e22;--code:#212a23;--warn:#f0a46a;--warn-soft:#33251a;color-scheme:dark}
+/* Video AI: nền đen, nhấn cam. Đầu trang dạng băng lớn, mục lục dính bên trái, mỗi bước một thẻ đánh số */
+:root{--bg:#0b0b0c;--bg2:#121214;--card:#161618;--card2:#1c1c1f;--fg:#f3f1ee;--mute:#a19d97;--line:#2a2a2e;--accent:#ff7a1a;--accent2:#ffa24d;--accent-ink:#1a0d02;--accent-soft:rgba(255,122,26,.12);--code:#0f0f11;--warn:#ffb46b;--warn-soft:rgba(255,122,26,.10);
+--sans:"Be Vietnam Pro",system-ui,sans-serif;--mono:"Roboto Mono",ui-monospace,monospace;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark}}
+:root[data-theme="dark"]{color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.6}
-.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 80px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2)}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:
+radial-gradient(900px 380px at 85% -10%,rgba(255,122,26,.28),transparent 60%),
+radial-gradient(600px 300px at 0% 120%,rgba(255,122,26,.12),transparent 60%),var(--bg)}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,#000 30%,transparent);pointer-events:none}
+.hero-in{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:56px 16px 44px;display:flex;flex-direction:column;gap:14px}
+.kicker{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(255,122,26,.4);background:var(--accent-soft);border-radius:999px;padding:4px 12px}
+.kicker i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+h1{font-size:clamp(44px,8vw,84px);line-height:.95;margin:0;font-weight:800;letter-spacing:-.03em}
+h1 span{background:linear-gradient(100deg,var(--accent) 10%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:17px;color:var(--mute);max-width:720px;margin:0}
+.lead code{color:var(--fg)}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+@media (max-width:520px){.stat{min-width:0;flex:1 1 calc(50% - 10px)}}
+.stat{background:rgba(22,22,24,.8);border:1px solid var(--line);border-radius:12px;padding:10px 16px;min-width:120px}
+.stat b{display:block;font-size:24px;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--mute)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:32px 80px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:36px}
 @media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}nav.toc{position:static!important;max-height:none!important}}
-header{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
-h1{font-size:30px;line-height:1.2;margin:0;text-wrap:balance}
-h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:8px 0 0}
-h3{font-size:19px;margin:0;text-wrap:balance}
-h4{font-size:14px;margin:6px 0 0}
+h2{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:18px 0 0;display:flex;align-items:center;gap:12px;font-weight:700}
+h2::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,122,26,.5),transparent)}
+main>h2:first-child{margin-top:0}
+h3{font-size:19px;margin:0;text-wrap:balance;font-weight:700}
+h4{font-size:14px;margin:6px 0 0;color:var(--accent2)}
 p{margin:0}.mute{color:var(--mute)}
-nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;max-height:calc(100vh - 32px);overflow:auto;display:flex;flex-direction:column;gap:2px;font-size:14px}
-nav.toc .ph{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:12px 0 2px}
-nav.toc a{color:var(--fg);text-decoration:none;padding:4px 8px;border-radius:6px;display:flex;gap:8px}
-nav.toc a span{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums;min-width:20px}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;max-height:calc(100vh - 32px);overflow:auto;display:flex;flex-direction:column;gap:2px;font-size:14px;padding:14px;background:var(--bg2);border:1px solid var(--line);border-radius:14px}
+nav.toc .ph{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:12px 0 2px;padding-left:8px}
+nav.toc .ph:first-child{margin-top:0}
+nav.toc a{color:var(--fg);text-decoration:none;padding:5px 8px;border-radius:8px;display:flex;gap:8px;border-left:2px solid transparent;transition:background .15s}
+nav.toc a span{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums;min-width:22px}
 nav.toc a:hover,nav.toc a:focus-visible{background:var(--accent-soft);outline:none}
-main{display:flex;flex-direction:column;gap:18px;min-width:0}
-.step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0;scroll-margin-top:16px}
+nav.toc a.on{background:var(--accent-soft);border-left-color:var(--accent)}
+main{display:flex;flex-direction:column;gap:16px;min-width:0}
+.step{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;min-width:0;scroll-margin-top:16px;transition:border-color .2s}
+.step:hover{border-color:rgba(255,122,26,.35)}
 .step-head{display:flex;gap:14px;align-items:flex-start}
-.n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--card);font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.n{flex:none;width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--accent-ink);font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums;box-shadow:0 6px 20px rgba(255,122,26,.25)}
 .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.chip{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:1px 10px;color:var(--mute)}
+.chip{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 10px;color:var(--mute);background:var(--card2)}
 .chip b{color:var(--fg);font-weight:600}
-.gate{background:var(--warn-soft);color:var(--warn);border-color:transparent;font-weight:600}
+.gate{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:700}
 ul,ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
-.out{border-left:3px solid var(--accent);padding:6px 12px;background:var(--accent-soft);border-radius:0 6px 6px 0;font-size:14px}
-.prompt{display:flex;flex-direction:column;gap:4px;min-width:0}
-.lab{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
-button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;padding:4px 12px;font-size:12.5px;letter-spacing:0;text-transform:none}
-button:hover{border-color:var(--accent)}
+li::marker{color:var(--accent)}
+.out{border-left:3px solid var(--accent);padding:8px 12px;background:var(--accent-soft);border-radius:0 8px 8px 0;font-size:14px}
+.prompt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lab{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:8px;padding:5px 12px;font-size:12.5px;letter-spacing:0;text-transform:none;transition:all .15s}
+button:hover{border-color:var(--accent);color:var(--accent2)}
 button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-button.ok{background:var(--accent);color:var(--card);border-color:var(--accent)}
-pre{margin:0;background:var(--code);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:12.8px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;max-height:420px;overflow:auto}
-.tw{overflow-x:auto}
+button[data-copy]{background:var(--accent-soft);border-color:rgba(255,122,26,.4);color:var(--accent2);font-weight:600}
+button.ok,button[data-copy].ok{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+pre{margin:0;background:var(--code);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12.8px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:420px;overflow:auto;color:#e8e3dc}
+pre::-webkit-scrollbar,nav.toc::-webkit-scrollbar{width:8px}
+pre::-webkit-scrollbar-thumb,nav.toc::-webkit-scrollbar-thumb{background:#33302c;border-radius:8px}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
 table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);font-weight:600}
-code{font-family:var(--mono);font-size:12.8px;background:var(--code);padding:1px 5px;border-radius:4px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+th{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700;background:var(--card2)}
+tbody tr:hover td{background:rgba(255,122,26,.05)}
+code{font-family:var(--mono);font-size:12.8px;background:var(--card2);color:var(--accent2);padding:1px 6px;border-radius:5px}
 .tabs{display:flex;gap:6px;flex-wrap:wrap}
-.tabs button[aria-selected="true"]{background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:600}
-.risk{background:var(--warn-soft);border-radius:10px;padding:14px 18px;color:var(--fg);display:flex;flex-direction:column;gap:6px}
-.risk b{color:var(--warn)}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:700}
+.risk{background:var(--warn-soft);border:1px solid rgba(255,122,26,.3);border-radius:14px;padding:16px 20px;color:var(--fg);display:flex;flex-direction:column;gap:6px}
+.risk b{color:var(--accent)}
+footer{border-top:1px solid var(--line);color:var(--mute);font-size:13px;text-align:center;padding:24px 16px}
+footer b{color:var(--accent)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 </head>
 <body>
 
+<header class="hero"><div class="hero-in">
+<span class="kicker"><i></i>Sổ tay nhóm QTK · PAM Media</span>
+<h1>Video <span>AI</span></h1>
+<p class="lead">Quy trình sản xuất hoạt hình 3D thế giới Mario: mỗi video là một tập đơn 3-5 phút, câu chuyện trọn vẹn. Làm bằng Muse AI hoặc Mario Studio trên Flow. Câu lệnh nào cũng có nút sao chép, phần trong ngoặc vuông <code>[ ]</code> là chỗ cần thay.</p>
+<div class="stats">
+<div class="stat"><b>12</b><span>bước</span></div>
+<div class="stat"><b>5</b><span>giai đoạn</span></div>
+<div class="stat"><b>2</b><span>điểm duyệt</span></div>
+<div class="stat"><b>2</b><span>công cụ: Muse · Flow</span></div>
+<div class="stat"><b>3-5'</b><span>mỗi tập</span></div>
+</div>
+</div></header>
+
 <div class="wrap">
-<header>
-<h1>Sổ tay sản xuất video AI thế giới Mario</h1>
-<p class="mute">Mỗi video là một tập đơn hoạt hình 3D dài 3-5 phút, một câu chuyện trọn vẹn, không ghép nhiều chuyện. Làm video bằng Muse AI hoặc Mario Studio trên Flow. 12 bước, 5 giai đoạn, 2 điểm duyệt. Câu lệnh nào cũng có nút sao chép. Phần trong ngoặc vuông <code>[ ]</code> là chỗ cần thay.</p>
-</header>
+
 
 <nav class="toc" aria-label="Mục lục">
 <div class="ph">Học mẫu</div>
 <a href="#b1"><span>1</span>Chọn video mẫu</a>
 <a href="#b2"><span>2</span>Phân tích bằng Gemini</a>
-<a href="#b3"><span>3</span>Rút công thức</a>
+<a href="#b3"><span>3</span>Phân tích kênh / cover</a>
 <div class="ph">Kịch bản</div>
 <a href="#b4"><span>4</span>Chọn tình huống</a>
 <a href="#b5"><span>5</span>Viết kịch bản</a>
@@ -190,7 +229,86 @@ Tối đa 10 dòng: những quy luật lặp lại trong video này mà video kh
 </section>
 
 <section class="step" id="b3">
-<div class="step-head"><div class="n">3</div><div><h3>Rút công thức</h3><div class="meta"><span class="chip"><b>Claude</b></span></div></div></div>
+<div class="step-head"><div class="n">3</div><div><h3>Phân tích kịch bản: cả kênh hoặc 1 video</h3><div class="meta"><span class="chip"><b>Gemini</b> + <b>Claude</b></span><span class="chip">Chọn 1 trong 3 cách</span></div></div></div>
+<div class="tabs" role="tablist">
+<button type="button" role="tab" id="tabK" aria-selected="true" aria-controls="pK">Phân tích cả kênh</button>
+<button type="button" role="tab" id="tabV" aria-selected="false" aria-controls="pV">Cover 1 video</button>
+<button type="button" role="tab" id="tabF" aria-selected="false" aria-controls="pF">Rút công thức 1 video</button>
+</div>
+
+<div id="pK" role="tabpanel" aria-labelledby="tabK" style="display:flex;flex-direction:column;gap:12px">
+<p class="mute">Dùng khi muốn biết cả kênh đối thủ đang thắng nhờ công thức gì, chủ đề nào ăn view, rồi chọn tình huống cho nhóm mình.</p>
+<ol>
+<li>Vào kênh đối thủ, tab Video, sắp theo <b>Phổ biến</b>. Lấy 10-20 video có lượt xem cao nhất, thêm 5 video mới nhất để biết hướng đi hiện tại.</li>
+<li>Ghi vào bảng: đường dẫn, tiêu đề, lượt xem, ngày đăng, thời lượng.</li>
+<li>Chạy câu lệnh Gemini dưới đây cho <b>từng video</b>, lưu mỗi kết quả thành một tệp .txt (đặt tên <code>v01.txt</code>, <code>v02.txt</code>…).</li>
+<li>Đính kèm tất cả tệp .txt và bảng lượt xem vào Claude, dán câu lệnh tổng hợp.</li>
+</ol>
+<div class="prompt"><div class="lab"><span>Câu lệnh Gemini · tóm tắt nhanh 1 video (chạy cho từng video)</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Xem toàn bộ video YouTube này: [DÁN ĐƯỜNG DẪN]
+
+Tóm tắt kịch bản như người sản xuất muốn học công thức. Chỉ ghi những gì thực sự thấy và nghe được; chỗ không chắc ghi "không rõ". Chữ thuần, không bảng, theo đúng mẫu:
+
+TIÊU ĐỀ:
+THỜI LƯỢNG:
+SỐ CÂU CHUYỆN TRONG VIDEO: (nếu ghép nhiều chuyện, phân tích riêng chuyện đầu tiên và ghi mốc của nó)
+NHÂN VẬT CHÍNH: (vai của từng người: người có lỗi, nạn nhân, người cứu, kẻ xấu...)
+TÌNH HUỐNG: (1 câu)
+MỞ ĐẦU 10 GIÂY ĐẦU: (hình ảnh và câu nói đầu tiên)
+CÁC NHỊP:
+[mm:ss] - [sự kiện chính]
+... (mỗi khi câu chuyện rẽ hướng thì ghi một dòng, từ đầu đến cuối)
+ĐIỂM NÍU: (mốc thời gian và chuyện gì khiến người xem phải xem tiếp)
+CÁCH KẾT: (giải quyết thế nào, có câu đạo lý không, có mở chuyện mới không)
+CẢM XÚC CHỦ ĐẠO: (hài, cảm động, hồi hộp, sợ...)
+SỐ BỐI CẢNH:
+THOẠI: (có lời dẫn không, nhân vật nói nhiều hay ít, ngôn ngữ)
+ẢNH BÌA VÀ TIÊU ĐỀ: (nét mặt, màu, chữ trên ảnh bìa nếu thấy)</pre></div>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · tổng hợp cả kênh</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Đây là [SỐ] tệp tóm tắt kịch bản của kênh [TÊN KÊNH] và bảng lượt xem từng video. Phân tích cả kênh cho tôi, trình bày ngắn gọn bằng bảng:
+
+1. Bảng tổng: mỗi video một dòng gồm tiêu đề, lượt xem, thời lượng, tình huống, vai nhân vật, cảm xúc chủ đạo, kiểu kết.
+2. Các công thức kịch bản lặp lại: đặt tên từng công thức, tỷ lệ thời lượng từng phần, vị trí điểm níu, video nào thuộc công thức nào, lượt xem trung bình của mỗi công thức.
+3. Cái gì ăn view: nhân vật, chủ đề, cảm xúc, kiểu mở đầu, thời lượng, kiểu ảnh bìa và tiêu đề của nhóm video top so với nhóm thấp.
+4. Hướng đi hiện tại của kênh: 5 video mới nhất khác gì video cũ.
+5. Điểm yếu của kênh nhóm mình có thể làm tốt hơn.
+6. So với công thức A và B của nhóm: giống, khác, có nên thêm công thức mới không.
+7. Đề xuất 5 tình huống mới cho nhóm, dùng nhân vật trong thư viện, mỗi tình huống ghi theo công thức nào.
+
+Chỉ học công thức, không chép cốt truyện, câu thoại, khung hình. Chỗ nào là suy luận thì ghi rõ.</pre></div>
+<div class="out">Đầu ra: bản đồ công thức của kênh và 5 tình huống mới. Chọn tình huống rồi sang bước 5.</div>
+</div>
+
+<div id="pV" role="tabpanel" aria-labelledby="tabV" hidden style="flex-direction:column;gap:12px">
+<p class="mute">Dùng khi 1 video đối thủ nổ view và muốn làm nhanh một tập cùng khung. Bản cover giữ <b>cấu trúc</b> (nhịp, điểm níu, kiểu tình huống, kiểu kết), còn diễn biến chi tiết, thoại, bối cảnh, hình ảnh phải viết mới.</p>
+<ol>
+<li>Chạy câu lệnh Gemini "phân tích video" ở bước 2 cho video đó, lưu tệp .txt.</li>
+<li>Đính kèm tệp .txt (và ảnh chụp cảnh nếu có) vào Claude, dán câu lệnh cover.</li>
+<li>Duyệt bản cover như duyệt kịch bản (bước 5), rồi sang bước 6.</li>
+</ol>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · cover kịch bản 1 video</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Đây là tệp phân tích Gemini của video [ĐƯỜNG DẪN] ([LƯỢT XEM] lượt xem). Cover kịch bản này thành một tập đơn [3-5] phút cho nhóm tôi:
+
+GIỮ NGUYÊN (cấu trúc):
+- Số phần, tỷ lệ thời lượng từng phần, vị trí các điểm níu.
+- Kiểu tình huống và vai nhân vật (người có lỗi, nạn nhân, người cứu, kẻ xấu...).
+- Nhịp cảm xúc và kiểu kết.
+
+VIẾT MỚI HOÀN TOÀN:
+- Nhân vật: chỉ dùng thư viện @mario, @LUIGI, @PEACH, @DAISY, @YOSHI, @TOAD, @BOWSER, @WARIO, @WALUIGI, chọn vai hợp tính cách.
+- Sự kiện cụ thể, đồ vật, bối cảnh: đổi sang thứ khác cùng vai trò (ví dụ bánh kem đổi thành đèn lồng).
+- Toàn bộ thoại: viết mới bằng tiếng Anh, không giữ câu nào của bản gốc.
+- Không giữ tên riêng, tiêu đề, khung hình đặc trưng của bản gốc.
+
+Trả về:
+1. Bảng đối chiếu từng nhịp: Mốc | Bản gốc (tóm tắt 1 câu) | Bản mới (tóm tắt 1 câu).
+2. Kịch bản bản mới: Mốc | Bối cảnh | Diễn biến (tiếng Việt) | Thoại (tiếng Anh, ghi người nói).
+3. Ghi chú: vị trí điểm níu, mức an toàn, ảnh mẫu cần tạo thêm.
+Chưa làm danh sách cảnh, chờ tôi duyệt.</pre></div>
+<div class="out">Đầu ra: kịch bản cover kèm bảng đối chiếu. Duyệt ở bước 5, rồi bước 6 xuất câu lệnh cho Muse hoặc Flow.</div>
+</div>
+
+<div id="pF" role="tabpanel" aria-labelledby="tabF" hidden style="flex-direction:column;gap:12px">
 <p>Đính kèm tệp .txt và bộ ảnh (hoặc tệp zip) vào Claude, rồi dán câu lệnh:</p>
 <div class="prompt"><div class="lab"><span>Câu lệnh Claude · rút công thức</span><button type="button" data-copy>Sao chép</button></div>
 <pre>Đây là tệp phân tích của Gemini và bộ ảnh chụp cảnh của video mẫu [ĐƯỜNG DẪN]. Nếu video ghép nhiều chuyện, chỉ phân tích chuyện từ [MỐC BẮT ĐẦU] đến [MỐC KẾT THÚC]. Nhóm làm tập đơn 3-5 phút, nên quy đổi công thức về một tập đơn có mở đầu và kết thúc trọn vẹn. Hãy rút công thức cho tôi:
@@ -201,6 +319,7 @@ Tối đa 10 dòng: những quy luật lặp lại trong video này mà video kh
 5. So với công thức A và B đang có: giống cái nào, khác ở đâu, có nên thêm công thức mới không.
 Chỗ nào suy luận từ ảnh thì ghi rõ. Chỉ học công thức, không chép cốt truyện, câu thoại, khung hình.</pre></div>
 <div class="out">Đầu ra: bản công thức. Xem hai công thức đang có ở mục <a href="#cong-thuc">Hai công thức</a>.</div>
+</div>
 </section>
 
 <h2>Giai đoạn 2 · Kịch bản</h2>
@@ -499,6 +618,7 @@ Waluigi: a very tall thin man with a purple cap with a yellow inverted letter L,
 </div>
 </main>
 </div>
+<footer><b>Video AI</b> · Sổ tay sản xuất nhóm QTK, PAM Media</footer>
 
 <script>
 document.addEventListener("click",e=>{
@@ -510,6 +630,9 @@ try{navigator.clipboard.writeText(pre.textContent).then(done,sel)}catch(x){sel()
 const t=e.target.closest('[role="tab"]');
 if(t){t.parentElement.querySelectorAll('[role="tab"]').forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on);const p=document.getElementById(x.getAttribute("aria-controls"));p.hidden=!on;p.style.display=on?"flex":""})}
 });
+const links=[...document.querySelectorAll('nav.toc a')];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-20% 0px -70% 0px'});
+links.forEach(l=>{const t=document.querySelector(l.getAttribute('href'));if(t)io.observe(t)});
 </script>
 </body>
 </html>
