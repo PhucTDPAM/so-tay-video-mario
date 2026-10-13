@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sổ tay sản xuất video Mario</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Bố cục: cột mục lục 12 bước dính bên trái, nội dung từng bước bên phải; mỗi câu lệnh một khối có nút sao chép */
+:root{--bg:#f2f5f1;--card:#ffffff;--fg:#18211a;--mute:#5a675d;--line:#d3dcd3;--accent:#1d7a3c;--accent-soft:#e3f1e7;--code:#edf2ec;--warn:#9a4a10;--warn-soft:#fbeee2;
+--sans:"Be Vietnam Pro",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111612;--card:#19201a;--fg:#e5ebe5;--mute:#98a69b;--line:#2c372e;--accent:#5cc27e;--accent-soft:#1d2e22;--code:#212a23;--warn:#f0a46a;--warn-soft:#33251a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111612;--card:#19201a;--fg:#e5ebe5;--mute:#98a69b;--line:#2c372e;--accent:#5cc27e;--accent-soft:#1d2e22;--code:#212a23;--warn:#f0a46a;--warn-soft:#33251a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 80px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}nav.toc{position:static!important;max-height:none!important}}
+header{grid-column:1/-1;display:flex;flex-direction:column;gap:6px}
+h1{font-size:30px;line-height:1.2;margin:0;text-wrap:balance}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:8px 0 0}
+h3{font-size:19px;margin:0;text-wrap:balance}
+h4{font-size:14px;margin:6px 0 0}
+p{margin:0}.mute{color:var(--mute)}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;max-height:calc(100vh - 32px);overflow:auto;display:flex;flex-direction:column;gap:2px;font-size:14px}
+nav.toc .ph{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:12px 0 2px}
+nav.toc a{color:var(--fg);text-decoration:none;padding:4px 8px;border-radius:6px;display:flex;gap:8px}
+nav.toc a span{color:var(--accent);font-weight:700;font-variant-numeric:tabular-nums;min-width:20px}
+nav.toc a:hover,nav.toc a:focus-visible{background:var(--accent-soft);outline:none}
+main{display:flex;flex-direction:column;gap:18px;min-width:0}
+.step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:0;scroll-margin-top:16px}
+.step-head{display:flex;gap:14px;align-items:flex-start}
+.n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--card);font-weight:700;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:1px 10px;color:var(--mute)}
+.chip b{color:var(--fg);font-weight:600}
+.gate{background:var(--warn-soft);color:var(--warn);border-color:transparent;font-weight:600}
+ul,ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:3px}
+.out{border-left:3px solid var(--accent);padding:6px 12px;background:var(--accent-soft);border-radius:0 6px 6px 0;font-size:14px}
+.prompt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.lab{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+button{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:6px;padding:4px 12px;font-size:12.5px;letter-spacing:0;text-transform:none}
+button:hover{border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button.ok{background:var(--accent);color:var(--card);border-color:var(--accent)}
+pre{margin:0;background:var(--code);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:12.8px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;max-height:420px;overflow:auto}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);font-weight:600}
+code{font-family:var(--mono);font-size:12.8px;background:var(--code);padding:1px 5px;border-radius:4px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:600}
+.risk{background:var(--warn-soft);border-radius:10px;padding:14px 18px;color:var(--fg);display:flex;flex-direction:column;gap:6px}
+.risk b{color:var(--warn)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+<h1>Sổ tay sản xuất video AI thế giới Mario</h1>
+<p class="mute">Mỗi video là một tập đơn hoạt hình 3D dài 3-5 phút, một câu chuyện trọn vẹn, không ghép nhiều chuyện. Làm video bằng Muse AI hoặc Mario Studio trên Flow. 12 bước, 5 giai đoạn, 2 điểm duyệt. Câu lệnh nào cũng có nút sao chép. Phần trong ngoặc vuông <code>[ ]</code> là chỗ cần thay.</p>
+</header>
+
+<nav class="toc" aria-label="Mục lục">
+<div class="ph">Học mẫu</div>
+<a href="#b1"><span>1</span>Chọn video mẫu</a>
+<a href="#b2"><span>2</span>Phân tích bằng Gemini</a>
+<a href="#b3"><span>3</span>Rút công thức</a>
+<div class="ph">Kịch bản</div>
+<a href="#b4"><span>4</span>Chọn tình huống</a>
+<a href="#b5"><span>5</span>Viết kịch bản</a>
+<div class="ph">Câu lệnh</div>
+<a href="#b6"><span>6</span>Danh sách cảnh</a>
+<a href="#b7"><span>7</span>Chạy thử 5 cảnh</a>
+<div class="ph">Sản xuất</div>
+<a href="#b8"><span>8</span>Tạo video</a>
+<a href="#b9"><span>9</span>Soát cảnh lỗi</a>
+<a href="#b10"><span>10</span>Dựng</a>
+<div class="ph">Đăng</div>
+<a href="#b11"><span>11</span>Đóng gói</a>
+<a href="#b12"><span>12</span>Kiểm duyệt, đăng</a>
+<div class="ph">Tra cứu</div>
+<a href="#cong-thuc"><span>A·B</span>Hai công thức</a>
+<a href="#nhan-vat"><span>@</span>Thư viện nhân vật</a>
+<a href="#da-lam"><span>✓</span>Các tập đã làm</a>
+</nav>
+
+<main>
+<h2>Giai đoạn 1 · Học mẫu</h2>
+
+<section class="step" id="b1">
+<div class="step-head"><div class="n">1</div><div><h3>Chọn video mẫu</h3><div class="meta"><span class="chip"><b>QTK</b></span><span class="chip">YouTube</span><span class="chip">Trưởng nhóm duyệt</span></div></div></div>
+<ul>
+<li>Lấy 5-10 video cùng thể loại thế giới Mario, ưu tiên tập đơn dài 3-5 phút.</li>
+<li>Video mẫu là bản ghép nhiều chuyện: chỉ lấy một chuyện trong đó để học, ghi rõ mốc bắt đầu và kết thúc của chuyện đó.</li>
+<li>Chỉ chọn video có lượt xem vượt hẳn mức trung bình của chính kênh đó.</li>
+<li>Ghi đường dẫn, lượt xem, ngày đăng vào bảng chung của nhóm.</li>
+</ul>
+<div class="out">Đầu ra: danh sách video mẫu đã duyệt.</div>
+</section>
+
+<section class="step" id="b2">
+<div class="step-head"><div class="n">2</div><div><h3>Phân tích video mẫu bằng Gemini</h3><div class="meta"><span class="chip"><b>QTK</b></span><span class="chip">Gemini</span></div></div></div>
+<ol>
+<li>Video ghép nhiều chuyện: chạy câu lệnh "tìm đoạn ngắt chuyện" trước để lấy mốc của chuyện cần học.</li>
+<li>Dán câu lệnh phân tích vào Gemini, thay đường dẫn ở dòng đầu (và mốc đoạn nếu có).</li>
+<li>Lưu kết quả thành tệp .txt. Không tạo được tệp thì sao chép khối mã Gemini trả về, dán vào Notepad.</li>
+<li>Xem dòng "HẾT" ở cuối: mốc cảnh cuối phải khớp tổng thời lượng. Không khớp thì gõ <code>tiếp</code>.</li>
+<li>Chụp ảnh cảnh cách nhau 8 giây cho trọn câu chuyện cần học, từ đầu đến cái kết.</li>
+</ol>
+<div class="prompt"><div class="lab"><span>Câu lệnh Gemini · tìm đoạn ngắt chuyện (chạy trước)</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Xem toàn bộ video YouTube này: [DÁN ĐƯỜNG DẪN]
+
+Video này có thể ghép nhiều câu chuyện ngắn liền nhau. Hãy tìm ranh giới giữa các câu chuyện. Chỉ ghi những gì thực sự thấy và nghe được; chỗ nào không chắc thì ghi "không rõ".
+
+Dấu hiệu một câu chuyện kết thúc và chuyện mới bắt đầu:
+- Câu chuyện cũ đã giải quyết xong (vấn đề được xử lý, nhân vật vui vẻ, ôm nhau, về nhà).
+- Mờ đen, chuyển cảnh lớn, màn hình tiêu đề hoặc chữ báo phần mới.
+- Đổi hẳn bối cảnh, thời gian trong ngày, trang phục, hoặc nhóm nhân vật chính.
+- Một vấn đề mới hoàn toàn xuất hiện, không liên quan chuyện trước.
+- Nhạc dừng hẳn rồi đổi sang nhạc khác.
+
+Trả về chữ thuần, không bảng, theo mẫu:
+
+TỔNG THỜI LƯỢNG VIDEO: ...
+SỐ CÂU CHUYỆN: ...
+
+CHUYỆN [số]
+Bắt đầu: [mm:ss] - Kết thúc: [mm:ss] (dài [số] phút [số] giây)
+Tóm tắt: [2 câu: vấn đề là gì, giải quyết thế nào]
+Nhân vật chính: ...
+Dấu hiệu kết thúc: [điều thấy hoặc nghe được ở mốc kết thúc]
+Độ chắc chắn của mốc ngắt: [cao/trung bình/thấp]
+
+Cuối cùng ghi:
+- Chuyện đầu tiên dài bao lâu, có nằm trong khoảng 3-5 phút không.
+- Chuyện nào trong video phù hợp nhất để học làm một tập đơn 3-5 phút, và vì sao.</pre></div>
+<p class="mute">Có mốc rồi thì thay dòng đầu của câu lệnh phân tích bên dưới bằng: <code>Chỉ phân tích đoạn từ [mm:ss] đến [mm:ss] của video này: [ĐƯỜNG DẪN]</code>. Chuyện ngắn hơn 3 phút vẫn học được, khi viết kịch bản Claude sẽ kéo dài cho đủ thời lượng.</p>
+<div class="prompt"><div class="lab"><span>Câu lệnh Gemini · phân tích video</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Xem toàn bộ video YouTube này: [DÁN ĐƯỜNG DẪN]
+
+Hãy phân tích như một người sản xuất muốn học công thức làm video, không tóm tắt nội dung. Chỉ ghi những gì thực sự thấy và nghe được trong video; chỗ nào không chắc thì ghi "không rõ", không suy đoán.
+
+YÊU CẦU ĐẦU RA
+- Xuất kết quả thành một tệp .txt để tải về. Nếu không tạo được tệp, đặt toàn bộ kết quả vào MỘT khối mã duy nhất để tôi sao chép lưu thành tệp .txt.
+- Chỉ dùng chữ thuần: không bảng, không in đậm, không ký hiệu định dạng.
+- Liệt kê ĐẦY ĐỦ mọi cảnh từ giây đầu đến giây cuối. Không gộp cảnh, không viết "tương tự như trên", không rút gọn, không bỏ qua cảnh ngắn.
+- Nếu hết giới hạn độ dài, dừng ở cuối một cảnh và ghi "CÒN TIẾP - cảnh kế tiếp số ...". Khi tôi gõ "tiếp", viết tiếp đúng từ cảnh đó, cùng định dạng.
+- Dòng cuối cùng của tệp ghi: "HẾT - tổng số cảnh: ..., mốc thời gian cảnh cuối: ..."
+
+NỘI DUNG TỆP GỒM 5 PHẦN, theo đúng thứ tự và tiêu đề sau:
+
+=== PHẦN 1: THÔNG TIN CHUNG ===
+Tên video:
+Đường dẫn:
+Thể loại:
+Tổng thời lượng:
+Tổng số cảnh:
+Thời lượng trung bình mỗi cảnh:
+Tỷ lệ khung hình:
+Lời dẫn: (có/không, giọng nam/nữ, tốc độ, cảm xúc)
+
+=== PHẦN 2: PHÂN CẢNH ===
+Mỗi cảnh viết một khối theo đúng mẫu này, các khối cách nhau một dòng trống:
+
+CẢNH [số thứ tự]
+Thời gian: [bắt đầu] - [kết thúc] ([số giây] giây)
+Hình ảnh: [chủ thể, hành động, bối cảnh]
+Cỡ cảnh và góc máy: [toàn/trung/cận; ngang/trên xuống/dưới lên]
+Chuyển động máy: [đứng yên/đẩy vào/kéo ra/lia/xoay]
+Chuyển cảnh: [kiểu chuyển sang cảnh sau]
+Lời dẫn: [chép nguyên văn; nếu không có ghi "không có"]
+Chữ trên màn hình: [nguyên văn; nếu không có ghi "không có"]
+Âm thanh: [nhạc nền, hiệu ứng âm thanh, khoảng lặng]
+
+=== PHẦN 3: CẤU TRÚC KỊCH BẢN ===
+- 30 giây đầu: giữ chân người xem bằng cách nào, câu mở đầu nguyên văn
+- Video chia thành mấy phần, mốc thời gian và vai trò từng phần
+- Các điểm níu người xem ở giữa video, kèm mốc thời gian
+- Cách kết thúc và lời kêu gọi
+
+=== PHẦN 4: QUY CHUẨN HÌNH ẢNH ===
+Phong cách hình, bảng màu chủ đạo, ánh sáng, đặc điểm nhân vật chính (ngoại hình, trang phục), kiểu bối cảnh lặp lại, kiểu chữ và vị trí chữ trên màn hình.
+
+=== PHẦN 5: CÔNG THỨC RÚT RA ===
+Tối đa 10 dòng: những quy luật lặp lại trong video này mà video khác cùng thể loại áp dụng được.</pre></div>
+<div class="out">Đầu ra: mỗi video một tệp .txt và một bộ ảnh chụp cảnh.</div>
+</section>
+
+<section class="step" id="b3">
+<div class="step-head"><div class="n">3</div><div><h3>Rút công thức</h3><div class="meta"><span class="chip"><b>Claude</b></span></div></div></div>
+<p>Đính kèm tệp .txt và bộ ảnh (hoặc tệp zip) vào Claude, rồi dán câu lệnh:</p>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · rút công thức</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Đây là tệp phân tích của Gemini và bộ ảnh chụp cảnh của video mẫu [ĐƯỜNG DẪN]. Nếu video ghép nhiều chuyện, chỉ phân tích chuyện từ [MỐC BẮT ĐẦU] đến [MỐC KẾT THÚC]. Nhóm làm tập đơn 3-5 phút, nên quy đổi công thức về một tập đơn có mở đầu và kết thúc trọn vẹn. Hãy rút công thức cho tôi:
+1. Cấu trúc kịch bản: chia mấy phần, tỷ lệ thời lượng từng phần, các điểm níu kèm mốc thời gian.
+2. Quy chuẩn hình ảnh: phong cách, màu theo cảm xúc, số bối cảnh, cỡ cảnh.
+3. Nhịp cảnh và âm thanh làm mốc.
+4. Lỗi của đối thủ nên tránh.
+5. So với công thức A và B đang có: giống cái nào, khác ở đâu, có nên thêm công thức mới không.
+Chỗ nào suy luận từ ảnh thì ghi rõ. Chỉ học công thức, không chép cốt truyện, câu thoại, khung hình.</pre></div>
+<div class="out">Đầu ra: bản công thức. Xem hai công thức đang có ở mục <a href="#cong-thuc">Hai công thức</a>.</div>
+</section>
+
+<h2>Giai đoạn 2 · Kịch bản</h2>
+
+<section class="step" id="b4">
+<div class="step-head"><div class="n">4</div><div><h3>Chọn tình huống</h3><div class="meta"><span class="chip"><b>Claude</b> đề xuất</span><span class="chip">Trưởng nhóm chọn</span></div></div></div>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · đề xuất tình huống</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Đề xuất 5 tình huống cho video mới theo công thức [A - Hối hận / B - Bí ẩn và giải cứu].
+- Chỉ dùng nhân vật trong thư viện: @mario, @LUIGI, @PEACH, @DAISY, @YOSHI, @TOAD, @BOWSER, @WARIO, @WALUIGI.
+- Trình bày dạng bảng: các vai theo công thức, tình huống tóm tắt 2-3 câu, số bối cảnh cần dùng.
+- Không trùng với các video đã làm: [TÊN CÁC VIDEO ĐÃ LÀM].
+- Tránh sinh nở, máu me, bạo lực, chủ đề người lớn.
+- Cuối cùng khuyên chọn 1 tình huống và nói vì sao.</pre></div>
+<div class="out">Đầu ra: 1 tình huống đã chọn.</div>
+</section>
+
+<section class="step" id="b5">
+<div class="step-head"><div class="n">5</div><div><h3>Viết kịch bản</h3><div class="meta"><span class="chip"><b>Claude</b></span><span class="chip gate">Duyệt lần 1</span></div></div></div>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · viết kịch bản</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Tôi chọn tình huống số [ ]. Viết kịch bản một tập đơn dài [3-5] phút theo công thức [A/B], câu chuyện trọn vẹn trong tập, không mở chuyện mới ở cuối:
+- Bảng theo từng phần, các cột: Mốc thời gian | Bối cảnh | Diễn biến (tiếng Việt) | Thoại (tiếng Anh, ghi tên người nói).
+- Khoảng 6-7 câu thoại mỗi phút, mỗi câu dưới 12 từ, đúng tính cách từng nhân vật.
+- Số bối cảnh tối đa: [6 cho công thức A / 15 cho công thức B].
+- Ghi chú cuối: vị trí các điểm níu, mức độ an toàn, ảnh chuẩn cần tạo thêm (trang phục khác ảnh gốc).
+Chưa làm danh sách cảnh, chờ tôi duyệt.</pre></div>
+<h4>Bảng kiểm duyệt lần 1</h4>
+<ul>
+<li>Đủ các phần, đúng tỷ lệ thời lượng của công thức.</li>
+<li>Thời lượng 3-5 phút, câu chuyện kết trọn trong tập.</li>
+<li>Các điểm níu nằm ở khoảng 25-45% thời lượng.</li>
+<li>Chỉ dùng nhân vật có trong thư viện.</li>
+<li>Không sinh nở, máu me, bạo lực, chủ đề người lớn.</li>
+<li>Không trùng cốt truyện và câu thoại của video mẫu.</li>
+</ul>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · sửa kịch bản (nếu chưa đạt)</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Sửa kịch bản: [GHI CHỖ CẦN SỬA]. Giữ nguyên các phần khác, đưa lại bảng đầy đủ.</pre></div>
+</section>
+
+<h2>Giai đoạn 3 · Câu lệnh</h2>
+
+<section class="step" id="b6">
+<div class="step-head"><div class="n">6</div><div><h3>Danh sách cảnh và câu lệnh</h3><div class="meta"><span class="chip"><b>Claude</b></span><span class="chip">Muse hoặc Mario Studio</span></div></div></div>
+<p>Kịch bản đã duyệt thì dán câu lệnh dưới đây, chọn công cụ sẽ dùng ở dòng đầu.</p>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · làm danh sách cảnh</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Duyệt kịch bản. Xuất câu lệnh cho [Muse / Mario Studio / cả hai].
+Chia thành cảnh 3-8 giây (3 phút khoảng 35 cảnh, 5 phút khoảng 60 cảnh). Toàn bộ câu lệnh viết bằng tiếng Anh.
+
+Nếu là Muse, xuất 3 tệp:
+1. muse-video-[TÊN].txt: mỗi dòng một cảnh, câu lệnh tự đủ ý, theo đúng thứ tự:
+   góc máy (cỡ cảnh + góc nhìn) → cách vào cảnh → hành động (lần đầu nhắc nhân vật trong dòng thì ghi tên kèm mô tả ngoại hình đầy đủ, lần sau chỉ ghi tên) → bối cảnh (đoạn mô tả cố định) → chuyển động máy → thoại kèm giọng cố định → tiếng động → cách ra cảnh → phong cách 3D → thời lượng → "No subtitles, no on-screen text, no watermark, no background music. Keep every character's design exactly as described."
+2. muse-anh-[TÊN].txt: câu lệnh ảnh đầu cho từng cảnh, mỗi dòng một câu.
+3. dung-phim-[TÊN].txt: bằng tiếng Việt, từng cảnh ghi góc máy và kiểu chuyển cảnh khi ghép.
+
+Nếu là Mario Studio, xuất tệp mario-studio-[TÊN].txt theo mẫu:
+CANH: [số]
+GIAY: [số giây]
+ANH: [mô tả ảnh]. Setting: [bối cảnh cố định].
+VIDEO: [chuyển động]. [thoại]. Sound: [tiếng động].
+Các khối cách nhau một dòng trống, gọi nhân vật bằng thẻ @.
+
+Quy tắc góc máy: mở và kết phim dùng cảnh toàn từ trên cao; Bowser máy thấp hắt lên; Toad máy hạ ngang tầm mắt; cảnh buồn nhìn từ trên xuống; cảnh giận máy hơi thấp; hai cảnh liền nhau không trùng góc.
+Quy tắc chuyển cảnh: cùng bối cảnh thì cắt thẳng, giữ nguyên ánh sáng và vị trí; đổi bối cảnh hoặc đổi giờ thì mờ rồi nét dần; cảnh chạy đuổi thì lia nhanh; hồi tưởng thì lóe trắng; đầu phim mờ từ đen vào, cuối phim mờ ra đen.
+Kiểm tra trước khi giao: số dòng bằng số cảnh; tệp Muse không còn chữ tiếng Việt và dấu @.</pre></div>
+<h4>Mẫu một dòng câu lệnh Muse</h4>
+<div class="prompt"><div class="lab"><span>Ví dụ · Sinh nhật Bowser, cảnh 14</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Close-up shot at eye level. The shot continues seamlessly from the previous moment, same lighting and character positions. Close-up of Bowser (a huge turtle-dragon king with a yellow-orange scaly body, green spiked turtle shell with a white rim, red hair and eyebrows, two horns, black spiked collar and armbands, cream belly plates) with teary eyes, softly blowing the small candle. Setting: a lonely rocky hill at sunset overlooking a distant lava lake. Static camera. The candle flame goes out. Bowser says in a deep, booming, quiet, sad voice: "Happy birthday... to me." Sound: soft blow, sniffle. 3D animated feature film style, soft rounded shapes, smooth materials, big expressive eyes, bright cheerful colors, cinematic lighting, shallow depth of field, 16:9 aspect ratio, about 5 seconds. Lighthearted family-friendly cartoon. No subtitles, no on-screen text, no watermark, no background music. Keep every character's design exactly as described.</pre></div>
+<h4>Mẫu một khối Mario Studio</h4>
+<div class="prompt"><div class="lab"><span>Ví dụ · Cây nấm tím, cảnh 4</span><button type="button" data-copy>Sao chép</button></div>
+<pre>CANH: 4
+GIAY: 5
+ANH: @WALUIGI dips a white mushroom into the cauldron, the mushroom turns glowing purple. Setting: a dark purple cave hideout with a bubbling cauldron, glowing purple bottles on wooden shelves and a messy wooden table.
+VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALUIGI says in a nasal, sly voice: "With this, I'll win the cooking contest!" Sound: magic fizz, sly giggle.</pre></div>
+<ul>
+<li>Cảnh không thoại phải có <code>Nobody speaks.</code>, nếu không nhân vật tự nói.</li>
+<li>Viết <code>the face of @mario</code>, không viết <code>@mario's face</code>.</li>
+<li>Không đưa chữ vào hình (biển hiệu, điện thoại): để trống, chèn khi dựng.</li>
+</ul>
+<div class="out">Đầu ra: Muse 3 tệp (muse-video, muse-anh, dung-phim) hoặc Mario Studio 1 tệp.</div>
+</section>
+
+<section class="step" id="b7">
+<div class="step-head"><div class="n">7</div><div><h3>Chạy thử 5 cảnh đầu</h3><div class="meta"><span class="chip"><b>QTK</b></span><span class="chip gate">Duyệt lần 2</span></div></div></div>
+<ol>
+<li>Chạy cảnh 1-5 bằng công cụ đã chọn (Muse: chế độ Bán tự động; Mario Studio: bật chạy thử).</li>
+<li>Chạy thêm 1 cảnh có hai người nói và 1 cảnh nhân vật mới xuất hiện lần đầu.</li>
+<li>Gửi kết quả cho Claude bằng câu lệnh dưới, sửa mẫu một lần cho cả bộ rồi mới chạy hết.</li>
+</ol>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · sửa mẫu sau chạy thử</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Đây là kết quả chạy thử [SỐ CẢNH] cảnh của tập [TÊN] trên [Muse / Mario Studio] (đính kèm). Lỗi tôi thấy: [MÔ TẢ LỖI]. Sửa mẫu câu lệnh cho cả bộ để khắc phục, rồi xuất lại đủ các tệp.</pre></div>
+<div class="tw"><table>
+<thead><tr><th>Lỗi</th><th>Dấu hiệu</th><th>Cách xử lý</th></tr></thead>
+<tbody>
+<tr><td>Sai tạo hình</td><td>Công chúa thành cô gái bình thường</td><td>Kiểm tra câu lệnh có mô tả ngoại hình chưa; Mario Studio thì mở rộng thẻ @ thành tên kèm ngoại hình</td></tr>
+<tr><td>Bị chặn</td><td>Công cụ từ chối vì tên nhân vật</td><td>Bỏ tên, chỉ giữ mô tả ngoại hình</td></tr>
+<tr><td>Giọng lệch</td><td>Cùng nhân vật mỗi cảnh một giọng</td><td>Giữ đúng giọng cố định; vẫn lệch thì làm giọng riêng rồi khớp miệng</td></tr>
+<tr><td>Sai người mở miệng</td><td>Cảnh hai người nói bị lẫn</td><td>Tách mỗi câu thoại thành một cảnh</td></tr>
+<tr><td>Hai đoạn nối bị giật</td><td>Ánh sáng, vị trí khác nhau</td><td>Dùng ảnh đầu (tệp muse-anh) hoặc lấy khung cuối cảnh trước làm ảnh đầu cảnh sau</td></tr>
+<tr><td>Thiếu giây</td><td>Video ngắn hơn số giây cảnh</td><td>Tách cảnh dài thành hai cảnh ngắn</td></tr>
+</tbody></table></div>
+</section>
+
+<h2>Giai đoạn 4 · Sản xuất</h2>
+
+<section class="step" id="b8">
+<div class="step-head"><div class="n">8</div><div><h3>Tạo video</h3><div class="meta"><span class="chip"><b>QTK</b></span><span class="chip">Muse Auto hoặc Mario Studio</span></div></div></div>
+<div class="tabs" role="tablist">
+<button type="button" role="tab" id="tabM" aria-selected="true" aria-controls="pM">Muse AI</button>
+<button type="button" role="tab" id="tabS" aria-selected="false" aria-controls="pS">Mario Studio (Flow)</button>
+</div>
+<div id="pM" role="tabpanel" aria-labelledby="tabM" style="display:flex;flex-direction:column;gap:10px">
+<ol>
+<li>Đăng nhập Muse bằng tài khoản của mình trên Chrome, mở tiện ích Muse Auto.</li>
+<li>Tạo thư mục tên tập. Nạp tệp <code>muse-video-[TÊN].txt</code> (dòng 1 là cảnh 1).</li>
+<li>Muse cho tạo từ ảnh: tạo ảnh từ tệp <code>muse-anh</code>, đặt tên <code>c01.png</code>, <code>c02.png</code>… rồi nạp kèm.</li>
+<li>Chọn khung 16:9. Chạy 5 cảnh đầu ở chế độ Bán tự động, ổn rồi mới chuyển Tự động.</li>
+<li>Tiện ích tự nghỉ ngẫu nhiên giữa các video và dừng khi gặp giới hạn, mã xác minh hoặc bị đăng xuất: vào xử lý tay rồi bấm chạy tiếp.</li>
+<li>Video tải về đặt tên <code>c01.mp4</code>, <code>c02.mp4</code>… trong thư mục tên tập.</li>
+</ol>
+</div>
+<div id="pS" role="tabpanel" aria-labelledby="tabS" hidden style="flex-direction:column;gap:10px">
+<ol>
+<li>Mở Mario Studio Pro trong Flow, tạo dự án mới tên tập.</li>
+<li>Dán toàn bộ tệp <code>mario-studio-[TÊN].txt</code>. Mặc định chọn đủ 9 nhân vật.</li>
+<li>Bấm "Tạo tất cả ảnh gốc" cho nhân vật và bối cảnh, chọn bản đẹp.</li>
+<li>Bật chạy thử 5 cảnh, ổn rồi bấm "Chạy tiếp" cho các cảnh còn lại.</li>
+<li>Bị mất mạng hoặc tắt màn hình: công cụ tự tạm dừng, vào bấm Tiếp tục. Lưu bản sao (JSON) sau mỗi lần chạy.</li>
+<li>Xong thì bấm ghép video trong công cụ, tải bản ghép về.</li>
+</ol>
+</div>
+<p class="mute">Cả hai cách: máy không được ngủ, giữ trình duyệt mở. Không dùng nhiều tài khoản luân phiên để vượt giới hạn.</p>
+</section>
+
+<section class="step" id="b9">
+<div class="step-head"><div class="n">9</div><div><h3>Soát và tạo lại cảnh lỗi</h3><div class="meta"><span class="chip"><b>QTK</b></span></div></div></div>
+<ul>
+<li>Xem lần lượt từng cảnh: đúng tạo hình, đúng người mở miệng, giọng giống các cảnh trước, đúng ngày hay đêm, không dính chữ.</li>
+<li>Ghi số cảnh lỗi, chỉ tạo lại các cảnh đó, không chạy lại cả tập.</li>
+<li>Một cảnh lỗi quá 2 lần: gửi Claude câu lệnh của cảnh đó kèm mô tả lỗi để viết lại.</li>
+</ul>
+</section>
+
+<section class="step" id="b10">
+<div class="step-head"><div class="n">10</div><div><h3>Dựng</h3><div class="meta"><span class="chip"><b>QTK</b></span><span class="chip">CapCut hoặc Premiere</span></div></div></div>
+<ol>
+<li>Ghép <code>c01</code> đến hết theo thứ tự, cắt đúng số giây từng cảnh.</li>
+<li>Mở tệp <code>dung-phim-[TÊN].txt</code>, đặt hiệu ứng chuyển cảnh đúng theo từng dòng:</li>
+</ol>
+<div class="tw"><table>
+<thead><tr><th>Trong tệp ghi</th><th>Hiệu ứng trong CapCut</th><th>Thời lượng</th></tr></thead>
+<tbody>
+<tr><td>Cắt thẳng, khớp hành động</td><td>Không hiệu ứng</td><td>—</td></tr>
+<tr><td>Hòa tan</td><td>Hòa tan (Mix / Dissolve)</td><td>0,5-1 giây</td></tr>
+<tr><td>Lia nhanh</td><td>Lia nhanh (Swipe / Whip pan)</td><td>0,3 giây</td></tr>
+<tr><td>Lóe trắng</td><td>Lóe trắng (Flash / White)</td><td>0,3 giây</td></tr>
+<tr><td>Mờ từ đen vào / Mờ ra đen</td><td>Mờ đen (Fade / Black)</td><td>0,5-1 giây</td></tr>
+</tbody></table></div>
+<ol start="3">
+<li>Chèn chữ (biển hiệu, điện thoại) nếu kịch bản cần.</li>
+<li>Thêm nhạc nền theo cảm xúc từng phần, để nhỏ hơn thoại.</li>
+<li>Xuất bản 1080p, 16:9.</li>
+</ol>
+</section>
+
+<h2>Giai đoạn 5 · Đăng</h2>
+
+<section class="step" id="b11">
+<div class="step-head"><div class="n">11</div><div><h3>Đóng gói</h3><div class="meta"><span class="chip"><b>Claude</b> viết</span><span class="chip">QTK làm ảnh bìa</span></div></div></div>
+<div class="prompt"><div class="lab"><span>Câu lệnh Claude · tiêu đề, mô tả, ảnh bìa</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Viết bộ đóng gói cho video [TÊN VIDEO] (kịch bản như trên):
+1. 3 phương án tiêu đề tiếng Anh, dưới 70 ký tự, đúng nội dung video, không lừa người xem.
+2. 1 mô tả: 3 dòng đầu hấp dẫn, sau đó tóm tắt ngắn.
+3. 15 thẻ.
+4. 3 ý tưởng ảnh bìa, mỗi ý tưởng kèm câu lệnh tạo ảnh (gọi nhân vật bằng thẻ @, khung 16:9, nét mặt cảm xúc mạnh, chỗ trống để chèn chữ).</pre></div>
+</section>
+
+<section class="step" id="b12">
+<div class="step-head"><div class="n">12</div><div><h3>Kiểm duyệt rồi đăng</h3><div class="meta"><span class="chip"><b>Trưởng nhóm</b></span></div></div></div>
+<ul>
+<li>Giọng mỗi nhân vật giống nhau từ đầu đến cuối.</li>
+<li>Không cảnh nào méo mặt, thừa tay chân, đổi trang phục giữa chừng.</li>
+<li>Không còn hình mờ của công cụ tạo ảnh, video.</li>
+<li>Tiêu đề đúng nội dung video.</li>
+<li>Gắn nhãn nội dung do AI tạo nếu YouTube yêu cầu; chọn đúng chế độ dành cho trẻ em.</li>
+<li>Trưởng nhóm xem hết video rồi mới đăng.</li>
+</ul>
+</section>
+
+<h2 id="cong-thuc">Tra cứu · Hai công thức</h2>
+<section class="step">
+<div class="tabs" role="tablist">
+<button type="button" role="tab" id="tabA" aria-selected="true" aria-controls="fA">A · Hối hận</button>
+<button type="button" role="tab" id="tabB" aria-selected="false" aria-controls="fB">B · Bí ẩn và giải cứu</button>
+</div>
+<div id="fA" role="tabpanel" aria-labelledby="tabA" style="display:flex;flex-direction:column;gap:10px">
+<div class="tw"><table>
+<thead><tr><th>Phần</th><th>Tỷ lệ</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td>1. Lỗi lầm</td><td>0-27%</td><td>Bình yên, người yếu thế nhờ giúp, người kia bỏ đi vì thú vui riêng</td></tr>
+<tr><td>2. Biến cố</td><td>27-78%</td><td>Sự cố, gọi cầu cứu bị tắt máy, người thứ ba đến cứu</td></tr>
+<tr><td>3. Hối hận</td><td>78-100%</td><td>Người có lỗi phát hiện, chạy đến, xin lỗi, một câu đạo lý</td></tr>
+</tbody></table></div>
+<ul>
+<li>Vai: người có lỗi, người yếu thế, người cứu. Ví dụ: Mario bỏ lỡ sinh nhật Luigi, Yoshi cứu.</li>
+<li>Điểm níu (tập 4 phút): sự cố (~1:10), bị tắt máy (~1:20), gọi người thứ ba (~1:40). Tập 3 hoặc 5 phút thì dời theo tỷ lệ.</li>
+<li>5-6 bối cảnh, dùng lại nhiều nên tốn ít lượt tạo ảnh.</li>
+<li>Kết bằng câu đạo lý, không kêu gọi đăng ký.</li>
+</ul>
+</div>
+<div id="fB" role="tabpanel" aria-labelledby="tabB" hidden style="flex-direction:column;gap:10px">
+<div class="tw"><table>
+<thead><tr><th>Phần</th><th>Tỷ lệ</th><th>Nội dung</th></tr></thead>
+<tbody>
+<tr><td>1. Mồi</td><td>0-3%</td><td>Đạo cụ có chữ báo chuyện ngay (bảng "FREE FOOD!")</td></tr>
+<tr><td>2. Gây án</td><td>4-12%</td><td>Kẻ xấu cài bẫy, đánh dấu bằng màu tím</td></tr>
+<tr><td>3. Nạn nhân</td><td>16-33%</td><td>Nạn nhân gục, đưa viện, người hùng quyết tâm</td></tr>
+<tr><td>4. Điều tra</td><td>37-45%</td><td>Manh mối có chữ: hóa đơn, nhãn chai</td></tr>
+<tr><td>5. Lộ kẻ xấu</td><td>49-54%</td><td>Cắt sang kẻ xấu đang theo dõi, cười</td></tr>
+<tr><td>6. Giải cứu</td><td>58-74%</td><td>Hành trình, đột nhập, lấy vật cứu</td></tr>
+<tr><td>7. Hồi phục</td><td>78-92%</td><td>Nạn nhân khỏe lại, ôm nhau</td></tr>
+<tr><td>8. Kết</td><td>92-100%</td><td>Kẻ xấu nhận hậu quả nhẹ, cảnh ấm cúng hoặc một chi tiết hài khép tập</td></tr>
+</tbody></table></div>
+<ul>
+<li>Vai: nạn nhân, người hùng điều tra, kẻ xấu. Ví dụ: Mario trúng độc, Luigi điều tra, Bowser chủ mưu.</li>
+<li>12-15 bối cảnh, tốn nhiều lượt tạo ảnh hơn công thức A.</li>
+<li>Cần thêm nhân vật Kamek, lính Koopa vào thư viện nếu dùng.</li>
+<li>Video mẫu nối nhiều chuyện thành video dài; nhóm chỉ lấy một chuyện, kết trọn trong tập 3-5 phút.</li>
+</ul>
+</div>
+</section>
+
+<h2 id="nhan-vat">Tra cứu · Thư viện nhân vật</h2>
+<section class="step">
+<div class="tw"><table>
+<thead><tr><th>Thẻ</th><th>Tính cách</th><th>Giọng cố định</th></tr></thead>
+<tbody>
+<tr><td><code>@mario</code></td><td>Tự tin, vui tính, dũng cảm, thích thi đấu, làm trước nghĩ sau</td><td>bright, confident</td></tr>
+<tr><td><code>@LUIGI</code></td><td>Hiền, nhút nhát, trung thành, dễ sợ, luôn nhường người khác</td><td>soft, shy</td></tr>
+<tr><td><code>@PEACH</code></td><td>Hiền hậu, điềm đạm, cứng rắn khi bị phụ lòng</td><td>calm, gentle</td></tr>
+<tr><td><code>@DAISY</code></td><td>Sôi nổi, thẳng tính, thích thi đấu</td><td>lively, bold</td></tr>
+<tr><td><code>@YOSHI</code></td><td>Trung thành, ngây thơ, tốt bụng</td><td>warm</td></tr>
+<tr><td><code>@TOAD</code></td><td>Nhỏ bé, siêng năng, lễ phép, dễ hoảng</td><td>small, kind</td></tr>
+<tr><td><code>@BOWSER</code></td><td>Ồn ào, kiêu ngạo, nóng tính, ngầm cần được thương</td><td>deep, booming</td></tr>
+<tr><td><code>@WARIO</code></td><td>Tham lam, ồn ào, ích kỷ, thích khoe</td><td>loud, gruff</td></tr>
+<tr><td><code>@WALUIGI</code></td><td>Ranh mãnh, hay ghen tị, kịch tính</td><td>nasal, sly</td></tr>
+</tbody></table></div>
+<p class="mute">Cảm xúc thêm vào giọng theo phần: lúc nguy cấp thêm "frightened, trembling" hoặc "urgent"; lúc kết thêm "regretful", "hurt" hoặc "gentle".</p>
+<div class="prompt"><div class="lab"><span>Câu lệnh tính cách · dán kèm khi viết kịch bản</span><button type="button" data-copy>Sao chép</button></div>
+<pre>MARIO: Confident, cheerful and brave older brother. Loves competition and attention, acts first and thinks later. Warm-hearted but easily distracted by excitement. Body language: chest out, quick energetic moves, big grin, thumbs up. When guilty: shoulders drop, cap in hands, eyes down.
+
+LUIGI: Gentle, shy and loyal younger brother. Easily scared, patient, always puts others first and hides his own hurt. Body language: hunched shoulders, hands fidgeting, small nervous smile, wide worried eyes. When brave: trembles but steps forward anyway.
+
+PEACH: Kind, graceful and calm leader. Caring and composed, but firm when someone lets her down. Body language: upright posture, hands folded, soft smile, slow elegant gestures. When upset: quiet disappointment, never shouting.
+
+DAISY: Energetic, bold and outspoken tomboy. Cheerful, competitive, says exactly what she feels. Body language: hands on hips, big open gestures, wide laugh, fast confident steps. When angry: arms crossed, sharp glare.
+
+YOSHI: Loyal, innocent and warm-hearted friend. Cheerful, always ready to help without being asked, never holds a grudge. Body language: bouncy steps, head tilts, bright eyes, happy little hops. When worried: stays close to the person he protects.
+
+TOAD: Small, eager and hardworking helper. Polite, anxious to please, panics easily but never gives up. Body language: quick tiny steps, waving arms, wide-eyed alarm, proud salute when praised.
+
+BOWSER: Loud, proud and hot-tempered tough guy with a hidden soft side. Stubborn, hates admitting he is wrong, secretly craves affection. Body language: heavy stomping walk, crossed arms, booming laugh, scowl. When ashamed: looks away, scratches his head, voice goes quiet.
+
+WARIO: Greedy, loud and selfish show-off. Loves money and winning, cheats without shame, laughs at others' bad luck. Body language: belly out, rubbing hands, wide smug grin, rude pointing. When caught: nervous laugh, blames someone else.
+
+WALUIGI: Sneaky, jealous and dramatic schemer who feels overlooked. Bitter, theatrical, craves recognition. Body language: long slouching stride, twirling his mustache, sly sideways glance, exaggerated poses. When ignored: sulks with drooping shoulders.</pre></div>
+<h4>Mô tả ngoại hình (bắt buộc trong câu lệnh Muse)</h4>
+<div class="prompt"><div class="lab"><span>Mô tả ngoại hình · tiếng Anh</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Mario: a short stocky man with a red cap with a white circle and a red letter M, big bushy black mustache, big round nose, blue eyes, red long-sleeve shirt, blue denim overalls with yellow buttons, white gloves, brown shoes
+Luigi: a tall slim man with a green cap with a white circle and a green letter L, black mustache, blue eyes, green long-sleeve shirt, dark blue overalls with yellow buttons, white gloves, brown shoes
+Princess Peach: long wavy blonde hair, golden crown with red and blue gems, blue eyes, round blue earrings, pink ball gown with puffy sleeves and darker pink layered trim, blue oval brooch, long white gloves
+Princess Daisy: shoulder-length wavy auburn-orange hair, small golden crown with green and red gems, blue eyes, flower-shaped earrings, yellow ball gown with orange trim and puffy sleeves, green flower brooch, short white gloves
+Yoshi: a friendly green dinosaur with a big round nose, large white eyes with black pupils, white belly, red saddle-shaped shell on his back, orange spikes on the back of his head, orange boots
+Toad: a small mushroom person with a large white mushroom cap with big red spots, round face, small black eyes, blue vest with gold trim, white puffy pants, brown shoes
+Bowser: a huge turtle-dragon king with a yellow-orange scaly body, green spiked turtle shell with a white rim, red hair and eyebrows, two horns, black spiked collar and armbands, cream belly plates
+Wario: a short wide man with a yellow cap with a blue letter W, zigzag black mustache, big pink nose, yellow shirt, purple overalls with white buttons, white gloves, green shoes
+Waluigi: a very tall thin man with a purple cap with a yellow inverted letter L, thin pointed black mustache, long nose, purple shirt, dark navy overalls with yellow buttons, white gloves, pointed orange shoes</pre></div>
+</section>
+
+<h2 id="da-lam">Tra cứu · Các tập đã làm</h2>
+<section class="step">
+<div class="tw"><table>
+<thead><tr><th>Tập</th><th>Công thức</th><th>Cảnh · Thời lượng</th><th>Nhân vật chính</th></tr></thead>
+<tbody>
+<tr><td>Sinh nhật Luigi</td><td>A</td><td>40 · 3:48</td><td>Mario, Luigi, Yoshi</td></tr>
+<tr><td>Ngọn đèn ngôi sao bị đánh cắp</td><td>B</td><td>35 · 3:00</td><td>Toad, Daisy, Luigi, Yoshi, Wario</td></tr>
+<tr><td>Cây nấm tím (Peach hóa zombie)</td><td>B</td><td>36 · 3:05</td><td>Peach, Mario, Luigi, Waluigi</td></tr>
+<tr><td>Hai công chúa</td><td>Hài, làm hòa</td><td>34 · 2:51</td><td>Mario, Peach, Daisy</td></tr>
+<tr><td>Mario bị đuổi khỏi nhà</td><td>A</td><td>34 · 2:56</td><td>Mario, Luigi, Peach</td></tr>
+<tr><td>Sinh nhật Bowser</td><td>A (bị quên, bất ngờ)</td><td>32 · 2:46</td><td>Bowser, Mario, cả nhóm</td></tr>
+</tbody></table></div>
+<p class="mute">Tránh lặp tình huống: khi xin đề xuất ở bước 4, dán tên các tập trên vào câu lệnh.</p>
+</section>
+
+<div class="risk">
+<p><b>Rủi ro bản quyền:</b> nhân vật Mario thuộc Nintendo, nên kênh có thể bị khiếu nại bản quyền, nhận gậy hoặc bị tắt kiếm tiền bất cứ lúc nào. Nhóm cần có phương án dự phòng cho kênh.</p>
+<p><b>Nội dung trùng lặp:</b> chỉ học công thức, không chép cốt truyện, câu thoại, khung hình của đối thủ.</p>
+</div>
+</main>
+</div>
+
+<script>
+document.addEventListener("click",e=>{
+const b=e.target.closest("[data-copy]");
+if(b){const pre=b.closest(".prompt").querySelector("pre");
+const done=()=>{b.textContent="Đã sao chép";b.classList.add("ok");setTimeout(()=>{b.textContent="Sao chép";b.classList.remove("ok")},1400)};
+const sel=()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Đã chọn, nhấn Ctrl+C"};
+try{navigator.clipboard.writeText(pre.textContent).then(done,sel)}catch(x){sel()}return}
+const t=e.target.closest('[role="tab"]');
+if(t){t.parentElement.querySelectorAll('[role="tab"]').forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on);const p=document.getElementById(x.getAttribute("aria-controls"));p.hidden=!on;p.style.display=on?"flex":""})}
+});
+</script>
+</body>
+</html>
