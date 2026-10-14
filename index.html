@@ -1,8 +1,5 @@
 <!doctype html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Video AI</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap">
 <style>
@@ -90,6 +87,10 @@ footer b{color:var(--accent)}
 .mode button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:var(--accent-ink)}
 .mode button[aria-selected="true"] span{color:rgba(26,13,2,.75)}
 body[data-mode="skill"] .only-manual,body[data-mode="manual"] .only-skill{display:none!important}
+body[data-niche="mario"] .only-roblox,body[data-niche="roblox"] .only-mario{display:none!important}
+.niche{display:inline-flex;align-self:flex-start;width:max-content;gap:4px;padding:4px;border-radius:999px;background:rgba(22,22,24,.85);border:1px solid var(--line);margin:4px 0 2px}
+.niche button{border:0;background:transparent;color:var(--mute);padding:8px 18px;border-radius:999px;font-weight:700;font-size:14.5px}
+.niche button[aria-selected="true"]{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--accent-ink)}
 .step-head{cursor:pointer;user-select:none;border-radius:10px}
 .step-head:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .step-head .chev{margin-left:auto;flex:none;width:30px;height:30px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);transition:transform .2s,background .2s}
@@ -101,17 +102,18 @@ body[data-mode="skill"] .only-manual,body[data-mode="manual"] .only-skill{displa
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
 .toolbar button{font-weight:600}
 </style>
-</head>
-<body>
+</head><body>
 
 <header class="hero"><div class="hero-in">
 <span class="kicker"><i></i>Sổ tay nhóm QTK · PAM Media</span>
 <h1>Video <span>AI</span></h1>
-<p class="lead">Quy trình sản xuất hoạt hình 3D thế giới Mario: mỗi video là một tập đơn 3-5 phút, câu chuyện trọn vẹn. Làm bằng Muse AI hoặc Mario Studio trên Flow. Câu lệnh nào cũng có nút sao chép, phần trong ngoặc vuông <code>[ ]</code> là chỗ cần thay.</p>
+<div class="niche" role="group" aria-label="Chọn chủ đề"><button type="button" data-niche="mario" aria-selected="true">🍄 Mario</button><button type="button" data-niche="roblox" aria-selected="false">🧱 Roblox</button></div>
+<p class="lead">Quy trình sản xuất hoạt hình 3D <span class="only-mario">thế giới Mario</span><span class="only-roblox">kiểu Roblox (gia đình Bacon Hair)</span>: mỗi video là một tập đơn 3-5 phút, câu chuyện trọn vẹn. Làm bằng Muse AI hoặc Mario Studio trên Flow. Câu lệnh nào cũng có nút sao chép, phần trong ngoặc vuông <code>[ ]</code> là chỗ cần thay.</p>
 <div class="stats">
 <div class="stat"><b>9 / 12</b><span>bước: skill / thủ công</span></div>
 <div class="stat"><b>5</b><span>giai đoạn</span></div>
 <div class="stat"><b>2</b><span>điểm duyệt</span></div>
+<div class="stat"><b>2</b><span>chủ đề: Mario · Roblox</span></div>
 <div class="stat"><b>2</b><span>công cụ: Muse · Flow</span></div>
 <div class="stat"><b>3-5'</b><span>mỗi tập</span></div>
 </div>
@@ -154,9 +156,13 @@ body[data-mode="skill"] .only-manual,body[data-mode="manual"] .only-skill{displa
 <a href="#b11"><span>11</span>Đóng gói</a>
 <a href="#b12"><span>12</span>Kiểm duyệt, đăng</a></div>
 <div class="ph">Tra cứu</div>
-<a href="#cong-thuc"><span>A·B</span>Hai công thức</a>
+<div class="only-mario"><a href="#cong-thuc"><span>A·B</span>Hai công thức</a>
 <a href="#nhan-vat"><span>@</span>Thư viện nhân vật</a>
-<a href="#da-lam"><span>✓</span>Các tập đã làm</a>
+<a href="#da-lam"><span>✓</span>Các tập đã làm</a></div>
+<div class="only-roblox"><a href="#cong-thuc-rb"><span>A·C·D</span>Công thức Roblox</a>
+<a href="#nhan-vat-rb"><span>@</span>Gia đình Roblox</a>
+<a href="#dong-goi-rb"><span>▶</span>Tiêu đề, ảnh bìa</a>
+<a href="#da-lam-rb"><span>✓</span>Các tập đã làm</a></div>
 </nav>
 
 <main>
@@ -166,7 +172,7 @@ body[data-mode="skill"] .only-manual,body[data-mode="manual"] .only-skill{displa
 <section class="step" id="b1">
 <div class="step-head"><div class="n" data-s="1" data-m="1">1</div><div><h3>Chọn video mẫu</h3><div class="meta"><span class="chip"><b>QTK</b></span><span class="chip">YouTube</span><span class="chip">Trưởng nhóm duyệt</span></div></div></div>
 <ul>
-<li>Lấy 5-10 video cùng thể loại thế giới Mario, ưu tiên tập đơn dài 3-5 phút.</li>
+<li>Lấy 5-10 video cùng thể loại <span class="only-mario">thế giới Mario</span><span class="only-roblox">Roblox gia đình (Brookhaven)</span>, ưu tiên tập đơn dài 3-5 phút.</li>
 <li>Video mẫu là bản ghép nhiều chuyện: chỉ lấy một chuyện trong đó để học, ghi rõ mốc bắt đầu và kết thúc của chuyện đó.</li>
 <li>Chỉ chọn video có lượt xem vượt hẳn mức trung bình của chính kênh đó.</li>
 <li>Ghi đường dẫn, lượt xem, ngày đăng vào bảng chung của nhóm.</li>
@@ -292,9 +298,9 @@ THOẠI: (có lời dẫn không, nhân vật nói nhiều hay ít, ngôn ngữ)
 
 <h2 class="only-skill">Claude · Gọi skill</h2>
 <section class="step only-skill" id="skill">
-<div class="step-head"><div class="n" data-s="3" data-m="">3</div><div><h3>Gọi skill video-mario-ai</h3><div class="meta"><span class="chip"><b>Claude</b></span><span class="chip">Thay cho bước 3-6 của cách Thủ công</span></div></div></div>
+<div class="step-head"><div class="n" data-s="3" data-m="">3</div><div><h3>Gọi skill <span class="only-mario">video-mario-ai</span><span class="only-roblox">video-roblox-ai</span></h3><div class="meta"><span class="chip"><b>Claude</b></span><span class="chip">Thay cho bước 3-6 của cách Thủ công</span></div></div></div>
 <ol>
-<li>Mở chat mới trong Claude, gõ <code>/video-mario-ai</code> rồi viết yêu cầu ngay sau đó (mẫu bên dưới).</li>
+<li>Mở chat mới trong Claude, gõ <code><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span></code> rồi viết yêu cầu ngay sau đó (mẫu bên dưới).</li>
 <li>Đính kèm tệp lấy ở bước 2: tệp phân tích Gemini (.txt), ảnh chụp cảnh, bảng lượt xem. Cách "Từ tình huống" thì không cần tệp.</li>
 <li>Ghi rõ <b>Muse</b> hoặc <b>Flow</b> để Claude không phải hỏi lại. Thêm <b>"làm thẳng"</b> nếu không cần duyệt kịch bản.</li>
 <li>Gõ <code>/</code> mà không thấy tên skill: skill chưa được lưu. Cài lại từ kho GitHub <code>claude-skills</code>.</li>
@@ -308,27 +314,27 @@ THOẠI: (có lời dẫn không, nhân vật nói nhiều hay ít, ngôn ngữ)
 </div>
 <div id="pS1" role="tabpanel" aria-labelledby="tabS1" style="display:flex;flex-direction:column;gap:10px">
 <div class="prompt"><div class="lab"><span>Gọi skill · phân tích cả kênh</span><button type="button" data-copy>Sao chép</button></div>
-<pre>/video-mario-ai Phân tích cả kênh [TÊN KÊNH]. Đính kèm [SỐ] tệp tóm tắt kịch bản (v01.txt...) và bảng lượt xem. Cho tôi bản đồ công thức của kênh, cái gì ăn view và 5 tình huống mới cho nhóm.</pre></div>
+<pre><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span> Phân tích cả kênh [TÊN KÊNH]. Đính kèm [SỐ] tệp tóm tắt kịch bản (v01.txt...) và bảng lượt xem. Cho tôi bản đồ công thức của kênh, cái gì ăn view và 5 tình huống mới cho nhóm.</pre></div>
 <p class="mute">Tệp tóm tắt lấy từ câu lệnh Gemini ở bước 3, thẻ "Phân tích cả kênh".</p>
 </div>
 <div id="pS2" role="tabpanel" aria-labelledby="tabS2" hidden style="flex-direction:column;gap:10px">
 <div class="prompt"><div class="lab"><span>Gọi skill · cover 1 video</span><button type="button" data-copy>Sao chép</button></div>
-<pre>/video-mario-ai Cover video [ĐƯỜNG DẪN] ([LƯỢT XEM] lượt xem) thành tập [3-5] phút cho [Muse / Flow]. Đính kèm tệp phân tích Gemini. Giữ khung, viết mới nhân vật, sự kiện, thoại. Cho tôi bảng đối chiếu trước.</pre></div>
+<pre><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span> Cover video [ĐƯỜNG DẪN] ([LƯỢT XEM] lượt xem) thành tập [3-5] phút cho [Muse / Flow]. Đính kèm tệp phân tích Gemini. Giữ khung, viết mới nhân vật, sự kiện, thoại. Cho tôi bảng đối chiếu trước.</pre></div>
 <p class="mute">Tệp phân tích lấy từ câu lệnh Gemini "phân tích video" ở bước 2.</p>
 </div>
 <div id="pS3" role="tabpanel" aria-labelledby="tabS3" hidden style="flex-direction:column;gap:10px">
 <div class="prompt"><div class="lab"><span>Gọi skill · rút công thức 1 video</span><button type="button" data-copy>Sao chép</button></div>
-<pre>/video-mario-ai Rút công thức video [ĐƯỜNG DẪN]. Đính kèm tệp phân tích Gemini và bộ ảnh chụp cảnh. So với công thức A và B của nhóm.</pre></div>
+<pre><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span> Rút công thức video [ĐƯỜNG DẪN]. Đính kèm tệp phân tích Gemini và bộ ảnh chụp cảnh. So với công thức <span class="only-mario">A và B</span><span class="only-roblox">A, C, D</span> của nhóm.</pre></div>
 </div>
 <div id="pS4" role="tabpanel" aria-labelledby="tabS4" hidden style="flex-direction:column;gap:10px">
 <div class="prompt"><div class="lab"><span>Gọi skill · đề xuất tình huống</span><button type="button" data-copy>Sao chép</button></div>
-<pre>/video-mario-ai Đề xuất 5 tình huống theo công thức [A / B], nhân vật chính [TÊN]. Không trùng các tập đã làm: [TÊN CÁC TẬP].</pre></div>
+<pre><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span> Đề xuất 5 tình huống theo công thức <span class="only-mario">[A / B]</span><span class="only-roblox">[A / C / D]</span>, nhân vật chính [TÊN]. Không trùng các tập đã làm: [TÊN CÁC TẬP].</pre></div>
 <div class="prompt"><div class="lab"><span>Gọi skill · làm thẳng 1 tập</span><button type="button" data-copy>Sao chép</button></div>
-<pre>/video-mario-ai Làm thẳng tập [3] phút cho [Muse / Flow]: [MÔ TẢ TÌNH HUỐNG 1-2 CÂU].</pre></div>
+<pre><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span> Làm thẳng tập [3] phút cho [Muse / Flow]: [MÔ TẢ TÌNH HUỐNG 1-2 CÂU].</pre></div>
 </div>
 <div id="pS5" role="tabpanel" aria-labelledby="tabS5" hidden style="flex-direction:column;gap:10px">
 <div class="prompt"><div class="lab"><span>Gọi skill · sửa mẫu sau chạy thử</span><button type="button" data-copy>Sao chép</button></div>
-<pre>/video-mario-ai Tập [TÊN] chạy thử [SỐ] cảnh trên [Muse / Flow] bị lỗi: [MÔ TẢ LỖI]. Đính kèm kết quả. Sửa mẫu câu lệnh cho cả bộ và xuất lại đủ tệp.</pre></div>
+<pre><span class="only-mario">/video-mario-ai</span><span class="only-roblox">/video-roblox-ai</span> Tập [TÊN] chạy thử [SỐ] cảnh trên [Muse / Flow] bị lỗi: [MÔ TẢ LỖI]. Đính kèm kết quả. Sửa mẫu câu lệnh cho cả bộ và xuất lại đủ tệp.</pre></div>
 </div>
 <div class="out">Đầu ra: Claude tự đi tiếp đến bước 6, trả về tệp câu lệnh cho Muse (muse-video, muse-anh, dung-phim) hoặc Flow (mario-studio). Sau đó sang bước 4: chạy thử 5 cảnh.</div>
 </section>
@@ -376,7 +382,7 @@ THOẠI: (có lời dẫn không, nhân vật nói nhiều hay ít, ngôn ngữ)
 3. Cái gì ăn view: nhân vật, chủ đề, cảm xúc, kiểu mở đầu, thời lượng, kiểu ảnh bìa và tiêu đề của nhóm video top so với nhóm thấp.
 4. Hướng đi hiện tại của kênh: 5 video mới nhất khác gì video cũ.
 5. Điểm yếu của kênh nhóm mình có thể làm tốt hơn.
-6. So với công thức A và B của nhóm: giống, khác, có nên thêm công thức mới không.
+6. So với công thức <span class="only-mario">A và B</span><span class="only-roblox">A, C, D</span> của nhóm: giống, khác, có nên thêm công thức mới không.
 7. Đề xuất 5 tình huống mới cho nhóm, dùng nhân vật trong thư viện, mỗi tình huống ghi theo công thức nào.
 
 Chỉ học công thức, không chép cốt truyện, câu thoại, khung hình. Chỗ nào là suy luận thì ghi rõ.</pre></div>
@@ -399,7 +405,7 @@ GIỮ NGUYÊN (cấu trúc):
 - Nhịp cảm xúc và kiểu kết.
 
 VIẾT MỚI HOÀN TOÀN:
-- Nhân vật: chỉ dùng thư viện @mario, @LUIGI, @PEACH, @DAISY, @YOSHI, @TOAD, @BOWSER, @WARIO, @WALUIGI, chọn vai hợp tính cách.
+- Nhân vật: chỉ dùng thư viện <span class="only-mario">@mario, @LUIGI, @PEACH, @DAISY, @YOSHI, @TOAD, @BOWSER, @WARIO, @WALUIGI</span><span class="only-roblox">@BACON, @LILY, @MOM, @DAD, @BABY, @NOOB</span>, chọn vai hợp tính cách.
 - Sự kiện cụ thể, đồ vật, bối cảnh: đổi sang thứ khác cùng vai trò (ví dụ bánh kem đổi thành đèn lồng).
 - Toàn bộ thoại: viết mới bằng tiếng Anh, không giữ câu nào của bản gốc.
 - Không giữ tên riêng, tiêu đề, khung hình đặc trưng của bản gốc.
@@ -420,9 +426,9 @@ Chưa làm danh sách cảnh, chờ tôi duyệt.</pre></div>
 2. Quy chuẩn hình ảnh: phong cách, màu theo cảm xúc, số bối cảnh, cỡ cảnh.
 3. Nhịp cảnh và âm thanh làm mốc.
 4. Lỗi của đối thủ nên tránh.
-5. So với công thức A và B đang có: giống cái nào, khác ở đâu, có nên thêm công thức mới không.
+5. So với công thức <span class="only-mario">A và B</span><span class="only-roblox">A, C, D</span> đang có: giống cái nào, khác ở đâu, có nên thêm công thức mới không.
 Chỗ nào suy luận từ ảnh thì ghi rõ. Chỉ học công thức, không chép cốt truyện, câu thoại, khung hình.</pre></div>
-<div class="out">Đầu ra: bản công thức. Xem hai công thức đang có ở mục <a href="#cong-thuc">Hai công thức</a>.</div>
+<div class="out">Đầu ra: bản công thức. Xem công thức đang có ở mục <span class="only-mario"><a href="#cong-thuc">Hai công thức</a></span><span class="only-roblox"><a href="#cong-thuc-rb">Công thức Roblox</a></span>.</div>
 </div>
 </section>
 
@@ -431,11 +437,12 @@ Chỗ nào suy luận từ ảnh thì ghi rõ. Chỉ học công thức, không 
 <section class="step only-manual" id="b4">
 <div class="step-head"><div class="n">4</div><div><h3>Chọn tình huống</h3><div class="meta"><span class="chip"><b>Claude</b> đề xuất</span><span class="chip">Trưởng nhóm chọn</span></div></div></div>
 <div class="prompt"><div class="lab"><span>Câu lệnh Claude · đề xuất tình huống</span><button type="button" data-copy>Sao chép</button></div>
-<pre>Đề xuất 5 tình huống cho video mới theo công thức [A - Hối hận / B - Bí ẩn và giải cứu].
-- Chỉ dùng nhân vật trong thư viện: @mario, @LUIGI, @PEACH, @DAISY, @YOSHI, @TOAD, @BOWSER, @WARIO, @WALUIGI.
+<pre>Đề xuất 5 tình huống cho video mới theo công thức <span class="only-mario">[A - Hối hận / B - Bí ẩn và giải cứu]</span><span class="only-roblox">[A - Hối hận / C - Tủi thân / D - Biến hình hỗn loạn]</span>.
+- Chỉ dùng nhân vật trong thư viện: <span class="only-mario">@mario, @LUIGI, @PEACH, @DAISY, @YOSHI, @TOAD, @BOWSER, @WARIO, @WALUIGI</span><span class="only-roblox">@BACON, @LILY, @MOM, @DAD, @BABY, @NOOB</span>.
 - Trình bày dạng bảng: các vai theo công thức, tình huống tóm tắt 2-3 câu, số bối cảnh cần dùng.
 - Không trùng với các video đã làm: [TÊN CÁC VIDEO ĐÃ LÀM].
-- Tránh sinh nở, máu me, bạo lực, chủ đề người lớn.
+- Tránh sinh nở, máu me, bạo lực, chủ đề người lớn.<span class="only-mario"></span><span class="only-roblox">
+- Mỗi tình huống có một bài học nhẹ cho trẻ; bố mẹ chỉ bận hoặc hiểu lầm, không tàn nhẫn.</span>
 - Cuối cùng khuyên chọn 1 tình huống và nói vì sao.</pre></div>
 <div class="out">Đầu ra: 1 tình huống đã chọn.</div>
 </section>
@@ -443,10 +450,10 @@ Chỗ nào suy luận từ ảnh thì ghi rõ. Chỉ học công thức, không 
 <section class="step only-manual" id="b5">
 <div class="step-head"><div class="n">5</div><div><h3>Viết kịch bản</h3><div class="meta"><span class="chip"><b>Claude</b></span><span class="chip gate">Duyệt lần 1</span></div></div></div>
 <div class="prompt"><div class="lab"><span>Câu lệnh Claude · viết kịch bản</span><button type="button" data-copy>Sao chép</button></div>
-<pre>Tôi chọn tình huống số [ ]. Viết kịch bản một tập đơn dài [3-5] phút theo công thức [A/B], câu chuyện trọn vẹn trong tập, không mở chuyện mới ở cuối:
+<pre>Tôi chọn tình huống số [ ]. Viết kịch bản một tập đơn dài [3-5] phút theo công thức <span class="only-mario">[A/B]</span><span class="only-roblox">[A/C/D]</span>, câu chuyện trọn vẹn trong tập, không mở chuyện mới ở cuối:
 - Bảng theo từng phần, các cột: Mốc thời gian | Bối cảnh | Diễn biến (tiếng Việt) | Thoại (tiếng Anh, ghi tên người nói).
 - Khoảng 6-7 câu thoại mỗi phút, mỗi câu dưới 12 từ, đúng tính cách từng nhân vật.
-- Số bối cảnh tối đa: [6 cho công thức A / 15 cho công thức B].
+- Số bối cảnh tối đa: <span class="only-mario">[6 cho công thức A / 15 cho công thức B]</span><span class="only-roblox">[6 cho công thức A và C / 8 cho công thức D]</span>.
 - Ghi chú cuối: vị trí các điểm níu, mức độ an toàn, ảnh chuẩn cần tạo thêm (trang phục khác ảnh gốc).
 Chưa làm danh sách cảnh, chờ tôi duyệt.</pre></div>
 <h4>Bảng kiểm duyệt lần 1</h4>
@@ -473,20 +480,21 @@ Chia thành cảnh 3-8 giây (3 phút khoảng 35 cảnh, 5 phút khoảng 60 c�
 
 Nếu là Muse, xuất 3 tệp:
 1. muse-video-[TÊN].txt: mỗi dòng một cảnh, câu lệnh tự đủ ý, theo đúng thứ tự:
-   góc máy (cỡ cảnh + góc nhìn) → cách vào cảnh → hành động (lần đầu nhắc nhân vật trong dòng thì ghi tên kèm mô tả ngoại hình đầy đủ, lần sau chỉ ghi tên) → bối cảnh (đoạn mô tả cố định) → chuyển động máy → thoại kèm giọng cố định → tiếng động → cách ra cảnh → phong cách 3D → thời lượng → "No subtitles, no on-screen text, no watermark, no background music. Keep every character's design exactly as described."
+   góc máy (cỡ cảnh + góc nhìn) → cách vào cảnh → hành động (lần đầu nhắc nhân vật trong dòng thì ghi tên kèm mô tả ngoại hình đầy đủ, lần sau chỉ ghi tên) → bối cảnh (đoạn mô tả cố định) → chuyển động máy → thoại kèm giọng cố định → tiếng động → cách ra cảnh → <span class="only-mario">phong cách 3D</span><span class="only-roblox">phong cách Roblox (dòng cố định ở mục Gia đình Roblox)</span> → thời lượng → "No subtitles, no on-screen text, no watermark, no background music. Keep every character's design exactly as described."
 2. muse-anh-[TÊN].txt: câu lệnh ảnh đầu cho từng cảnh, mỗi dòng một câu.
 3. dung-phim-[TÊN].txt: bằng tiếng Việt, từng cảnh ghi góc máy và kiểu chuyển cảnh khi ghép.
 
-Nếu là Mario Studio, xuất tệp mario-studio-[TÊN].txt theo mẫu:
+Nếu là Mario Studio, xuất tệp <span class="only-mario">mario-studio</span><span class="only-roblox">flow</span>-[TÊN].txt theo mẫu:
 CANH: [số]
 GIAY: [số giây]
 ANH: [mô tả ảnh]. Setting: [bối cảnh cố định].
 VIDEO: [chuyển động]. [thoại]. Sound: [tiếng động].
 Các khối cách nhau một dòng trống, gọi nhân vật bằng thẻ @.
 
-Quy tắc góc máy: mở và kết phim dùng cảnh toàn từ trên cao; Bowser máy thấp hắt lên; Toad máy hạ ngang tầm mắt; cảnh buồn nhìn từ trên xuống; cảnh giận máy hơi thấp; hai cảnh liền nhau không trùng góc.
+Quy tắc góc máy: mở và kết phim dùng cảnh toàn từ trên cao; <span class="only-mario">Bowser máy thấp hắt lên; Toad máy hạ ngang tầm mắt;</span><span class="only-roblox">cảnh có trẻ máy hạ ngang tầm mắt trẻ; bố mẹ mắng thì máy thấp từ góc nhìn của trẻ;</span> cảnh buồn nhìn từ trên xuống; cảnh giận máy hơi thấp; hai cảnh liền nhau không trùng góc.
 Quy tắc chuyển cảnh: cùng bối cảnh thì cắt thẳng, giữ nguyên ánh sáng và vị trí; đổi bối cảnh hoặc đổi giờ thì mờ rồi nét dần; cảnh chạy đuổi thì lia nhanh; hồi tưởng thì lóe trắng; đầu phim mờ từ đen vào, cuối phim mờ ra đen.
 Kiểm tra trước khi giao: số dòng bằng số cảnh; tệp Muse không còn chữ tiếng Việt và dấu @.</pre></div>
+<div class="only-mario" style="display:flex;flex-direction:column;gap:12px">
 <h4>Mẫu một dòng câu lệnh Muse</h4>
 <div class="prompt"><div class="lab"><span>Ví dụ · Sinh nhật Bowser, cảnh 14</span><button type="button" data-copy>Sao chép</button></div>
 <pre>Close-up shot at eye level. The shot continues seamlessly from the previous moment, same lighting and character positions. Close-up of Bowser (a huge turtle-dragon king with a yellow-orange scaly body, green spiked turtle shell with a white rim, red hair and eyebrows, two horns, black spiked collar and armbands, cream belly plates) with teary eyes, softly blowing the small candle. Setting: a lonely rocky hill at sunset overlooking a distant lava lake. Static camera. The candle flame goes out. Bowser says in a deep, booming, quiet, sad voice: "Happy birthday... to me." Sound: soft blow, sniffle. 3D animated feature film style, soft rounded shapes, smooth materials, big expressive eyes, bright cheerful colors, cinematic lighting, shallow depth of field, 16:9 aspect ratio, about 5 seconds. Lighthearted family-friendly cartoon. No subtitles, no on-screen text, no watermark, no background music. Keep every character's design exactly as described.</pre></div>
@@ -496,12 +504,24 @@ Kiểm tra trước khi giao: số dòng bằng số cảnh; tệp Muse không c
 GIAY: 5
 ANH: @WALUIGI dips a white mushroom into the cauldron, the mushroom turns glowing purple. Setting: a dark purple cave hideout with a bubbling cauldron, glowing purple bottles on wooden shelves and a messy wooden table.
 VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALUIGI says in a nasal, sly voice: "With this, I'll win the cooking contest!" Sound: magic fizz, sly giggle.</pre></div>
+</div>
+<div class="only-roblox" style="display:flex;flex-direction:column;gap:12px">
+<h4>Mẫu một dòng câu lệnh Muse</h4>
+<div class="prompt"><div class="lab"><span>Ví dụ · Công thức C (Tủi thân), cảnh 12</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Medium shot at a child's eye level. The shot opens with a gentle focus pull from soft blur to sharp. Bacon (a blocky Roblox-style boy with a light tan cylindrical head, messy wavy brown bacon hair swept to one side, big brown eyes, orange hoodie with a white lightning bolt on the chest, dark blue jeans, white sneakers) sits alone on the bottom stair hugging his knees, while behind him Mom (a blocky Roblox-style woman with a light cylindrical head, long brown hair in a high ponytail, green eyes, red cardigan over a white blouse, light blue jeans, white flats) and Dad (a tall blocky Roblox-style man with a light tan cylindrical head, short black hair, black rectangular glasses, short neat black beard, navy blue polo shirt, khaki pants, brown shoes) smile and play with Baby Max (a tiny blocky Roblox-style baby with a light cylindrical head, one curl of blond hair, big curious eyes, yellow onesie with a little duck print, blue pacifier) on the sofa. Setting: a cozy living room with a gray sofa, a big TV, a wooden coffee table and toys on a soft rug. Slow push-in toward Bacon. Bacon says in a cheeky, energetic boyish, sad, quiet voice: "Nobody even looks at me anymore." Sound: baby giggles in the background, soft sigh. The camera drifts slowly as the image softly blurs. 3D Roblox-style animation, blocky toy-like characters with cylindrical heads and rectangular bodies, smooth glossy plastic materials, expressive cartoon faces with big eyes and eyebrows, bright saturated colors, soft clean lighting, shallow depth of field, 16:9 aspect ratio, about 6 seconds. Lighthearted family-friendly kids cartoon. No subtitles, no on-screen text, no watermark, no logos, no background music. Keep every character's design exactly as described.</pre></div>
+<h4>Mẫu một khối Mario Studio</h4>
+<div class="prompt"><div class="lab"><span>Ví dụ · cùng cảnh, định dạng Flow</span><button type="button" data-copy>Sao chép</button></div>
+<pre>CANH: 12
+GIAY: 6
+ANH: Medium shot at a child's eye level. @BACON sits alone on the bottom stair hugging his knees, while @MOM and @DAD play with @BABY on the sofa behind him. Setting: a cozy living room with a gray sofa, a big TV, a wooden coffee table and toys on a soft rug.
+VIDEO: Slow push-in toward @BACON. @BACON says in a cheeky, energetic boyish, sad, quiet voice: "Nobody even looks at me anymore." Sound: baby giggles in the background, soft sigh.</pre></div>
+</div>
 <ul>
 <li>Cảnh không thoại phải có <code>Nobody speaks.</code>, nếu không nhân vật tự nói.</li>
-<li>Viết <code>the face of @mario</code>, không viết <code>@mario's face</code>.</li>
+<li>Viết <code>the face of <span class="only-mario">@mario</span><span class="only-roblox">@BACON</span></code>, không viết <code><span class="only-mario">@mario</span><span class="only-roblox">@BACON</span>'s face</code>.</li>
 <li>Không đưa chữ vào hình (biển hiệu, điện thoại): để trống, chèn khi dựng.</li>
 </ul>
-<div class="out">Đầu ra: Muse 3 tệp (muse-video, muse-anh, dung-phim) hoặc Mario Studio 1 tệp.</div>
+<div class="out">Đầu ra: Muse 3 tệp (muse-video, muse-anh, dung-phim) hoặc Mario Studio 1 tệp (<span class="only-mario">mario-studio</span><span class="only-roblox">flow</span>).</div>
 </section>
 
 <section class="step" id="b7">
@@ -516,7 +536,7 @@ VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALU
 <div class="tw"><table>
 <thead><tr><th>Lỗi</th><th>Dấu hiệu</th><th>Cách xử lý</th></tr></thead>
 <tbody>
-<tr><td>Sai tạo hình</td><td>Công chúa thành cô gái bình thường</td><td>Kiểm tra câu lệnh có mô tả ngoại hình chưa; Mario Studio thì mở rộng thẻ @ thành tên kèm ngoại hình</td></tr>
+<tr><td>Sai tạo hình</td><td><span class="only-mario">Công chúa thành cô gái bình thường</span><span class="only-roblox">Nhân vật mất dáng khối, thành người thật</span></td><td>Kiểm tra câu lệnh có mô tả ngoại hình chưa; Mario Studio thì mở rộng thẻ @ thành tên kèm ngoại hình</td></tr>
 <tr><td>Bị chặn</td><td>Công cụ từ chối vì tên nhân vật</td><td>Bỏ tên, chỉ giữ mô tả ngoại hình</td></tr>
 <tr><td>Giọng lệch</td><td>Cùng nhân vật mỗi cảnh một giọng</td><td>Giữ đúng giọng cố định; vẫn lệch thì làm giọng riêng rồi khớp miệng</td></tr>
 <tr><td>Sai người mở miệng</td><td>Cảnh hai người nói bị lẫn</td><td>Tách mỗi câu thoại thành một cảnh</td></tr>
@@ -546,7 +566,7 @@ VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALU
 <div id="pS" role="tabpanel" aria-labelledby="tabS" hidden style="flex-direction:column;gap:10px">
 <ol>
 <li>Mở Mario Studio Pro trong Flow, tạo dự án mới tên tập.</li>
-<li>Dán toàn bộ tệp <code>mario-studio-[TÊN].txt</code>. Mặc định chọn đủ 9 nhân vật.</li>
+<li><span class="only-mario">Dán toàn bộ tệp <code>mario-studio-[TÊN].txt</code>. Mặc định chọn đủ 9 nhân vật.</span><span class="only-roblox">Lần đầu: thêm 6 nhân vật ở mục <a href="#nhan-vat-rb">Gia đình Roblox</a> vào thư viện của công cụ (dán ngoại hình, tạo ảnh gốc). Sau đó dán toàn bộ tệp <code>flow-[TÊN].txt</code>.</span></li>
 <li>Bấm "Tạo tất cả ảnh gốc" cho nhân vật và bối cảnh, chọn bản đẹp.</li>
 <li>Bật chạy thử 5 cảnh, ổn rồi bấm "Chạy tiếp" cho các cảnh còn lại.</li>
 <li>Bị mất mạng hoặc tắt màn hình: công cụ tự tạm dừng, vào bấm Tiếp tục. Lưu bản sao (JSON) sau mỗi lần chạy.</li>
@@ -596,7 +616,8 @@ VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALU
 1. 3 phương án tiêu đề tiếng Anh, dưới 70 ký tự, đúng nội dung video, không lừa người xem.
 2. 1 mô tả: 3 dòng đầu hấp dẫn, sau đó tóm tắt ngắn.
 3. 15 thẻ.
-4. 3 ý tưởng ảnh bìa, mỗi ý tưởng kèm câu lệnh tạo ảnh (gọi nhân vật bằng thẻ @, khung 16:9, nét mặt cảm xúc mạnh, chỗ trống để chèn chữ).</pre></div>
+4. 3 ý tưởng ảnh bìa, mỗi ý tưởng kèm câu lệnh tạo ảnh (gọi nhân vật bằng thẻ @, khung 16:9, nét mặt cảm xúc mạnh, chỗ trống để chèn chữ).<span class="only-mario"></span><span class="only-roblox">
+5. Tiêu đề theo mẫu "Roblox Story: [xung đột ngắn 4-8 từ]"; ảnh bìa 2-3 nhân vật cận mặt cảm xúc cực mạnh, có biểu tượng tim / dấu giận / dấu hỏi / nước mắt, nền sáng đơn giản.</span></pre></div>
 </section>
 
 <section class="step" id="b12">
@@ -611,8 +632,8 @@ VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALU
 </ul>
 </section>
 
-<h2 id="cong-thuc">Tra cứu · Hai công thức</h2>
-<section class="step">
+<h2 class="only-mario" id="cong-thuc">Tra cứu · Hai công thức</h2>
+<section class="step only-mario">
 <div class="tabs" role="tablist">
 <button type="button" role="tab" id="tabA" aria-selected="true" aria-controls="fA">A · Hối hận</button>
 <button type="button" role="tab" id="tabB" aria-selected="false" aria-controls="fB">B · Bí ẩn và giải cứu</button>
@@ -654,8 +675,8 @@ VIDEO: Static camera. Purple sparkles burst as the mushroom changes color. @WALU
 </div>
 </section>
 
-<h2 id="nhan-vat">Tra cứu · Thư viện nhân vật</h2>
-<section class="step">
+<h2 class="only-mario" id="nhan-vat">Tra cứu · Thư viện nhân vật</h2>
+<section class="step only-mario">
 <div class="tw"><table>
 <thead><tr><th>Thẻ</th><th>Tính cách</th><th>Giọng cố định</th></tr></thead>
 <tbody>
@@ -701,8 +722,8 @@ Wario: a short wide man with a yellow cap with a blue letter W, zigzag black mus
 Waluigi: a very tall thin man with a purple cap with a yellow inverted letter L, thin pointed black mustache, long nose, purple shirt, dark navy overalls with yellow buttons, white gloves, pointed orange shoes</pre></div>
 </section>
 
-<h2 id="da-lam">Tra cứu · Các tập đã làm</h2>
-<section class="step">
+<h2 class="only-mario" id="da-lam">Tra cứu · Các tập đã làm</h2>
+<section class="step only-mario">
 <div class="tw"><table>
 <thead><tr><th>Tập</th><th>Công thức</th><th>Cảnh · Thời lượng</th><th>Nhân vật chính</th></tr></thead>
 <tbody>
@@ -716,8 +737,97 @@ Waluigi: a very tall thin man with a purple cap with a yellow inverted letter L,
 <p class="mute">Tránh lặp tình huống: khi xin đề xuất ở bước 4, dán tên các tập trên vào câu lệnh.</p>
 </section>
 
+<h2 class="only-roblox" id="cong-thuc-rb">Tra cứu · Công thức Roblox</h2>
+<section class="step only-roblox">
+<p class="mute">Rút từ 2 kênh Roblox Jack (934 N người đăng ký) và King Roblox (450 N): cả hai dùng chung bộ chủ đề, video đỉnh đạt 2-24 triệu view.</p>
+<div class="tabs" role="tablist">
+<button type="button" role="tab" id="trA" aria-selected="true" aria-controls="rA">A · Hối hận</button>
+<button type="button" role="tab" id="trC" aria-selected="false" aria-controls="rC">C · Tủi thân</button>
+<button type="button" role="tab" id="trD" aria-selected="false" aria-controls="rD">D · Biến hình hỗn loạn</button>
+</div>
+<div id="rA" role="tabpanel" aria-labelledby="trA" style="display:flex;flex-direction:column;gap:10px">
+<div class="tw"><table>
+<thead><tr><th>Phần</th><th>Tỷ lệ</th><th>Nội dung</th></tr></thead>
+<tbody><tr><td>1. Lỗi lầm</td><td>0-27%</td><td>Bacon nghịch, ích kỷ, mải chơi (điện thoại, ăn vặt, không chia sẻ)</td></tr><tr><td>2. Hậu quả</td><td>27-78%</td><td>Sự cố, cầu cứu bị phớt lờ, người khác giúp</td></tr><tr><td>3. Hối hận</td><td>78-100%</td><td>Bacon xin lỗi, một câu bài học</td></tr></tbody></table></div>
+<ul><li>Hợp: nghiện điện thoại, ghét em, tham ăn, giả ốm, không chia sẻ đồ chơi.</li><li>Điểm níu: sự cố ở ~30%, cầu cứu bị phớt lờ ở ~40%.</li><li>5-6 bối cảnh trong nhà và quanh nhà.</li></ul>
+</div>
+<div id="rC" role="tabpanel" aria-labelledby="trC" hidden style="flex-direction:column;gap:10px">
+<div class="tw"><table>
+<thead><tr><th>Phần</th><th>Tỷ lệ</th><th>Nội dung</th></tr></thead>
+<tbody><tr><td>1. Bình thường</td><td>0-15%</td><td>Bacon vui vẻ, chờ một điều nhỏ (khoe điểm, đi chơi)</td></tr><tr><td>2. Bất công</td><td>15-45%</td><td>Bố mẹ chỉ lo em hoặc em bé, Bacon bị hiểu lầm; dồn 2-3 lần</td></tr><tr><td>3. Bùng nổ</td><td>45-60%</td><td>Bacon buồn bỏ ra ngoài hoặc làm chuyện dại</td></tr><tr><td>4. Biến cố</td><td>60-80%</td><td>Bacon gặp rắc rối nhẹ (lạc, mắc mưa), cả nhà đi tìm</td></tr><tr><td>5. Hiểu ra</td><td>80-100%</td><td>Cả nhà xin lỗi, ôm nhau, câu bài học</td></tr></tbody></table></div>
+<ul><li>Nhóm ăn view nhất của đối thủ: bị ghét, bị so sánh, có em bé mới (2-11 triệu view).</li><li>Bố mẹ chỉ bận hoặc hiểu lầm, không tàn nhẫn; kết luôn làm lành.</li><li>Điểm níu: lần bất công thứ hai (~30%), Bacon bỏ đi (~50%).</li></ul>
+</div>
+<div id="rD" role="tabpanel" aria-labelledby="trD" hidden style="flex-direction:column;gap:10px">
+<div class="tw"><table>
+<thead><tr><th>Phần</th><th>Tỷ lệ</th><th>Nội dung</th></tr></thead>
+<tbody><tr><td>1. Mồi</td><td>0-10%</td><td>Đồ vật lạ: áo tàng hình, máy biến to, nước hóa em bé</td></tr><tr><td>2. Vui sướng</td><td>10-35%</td><td>Dùng để chơi khăm em, bạn, bố mẹ</td></tr><tr><td>3. Mất kiểm soát</td><td>35-70%</td><td>Không quay lại được, hỗn loạn khắp nhà, thị trấn</td></tr><tr><td>4. Gỡ rối</td><td>70-90%</td><td>Cả nhà cùng tìm cách</td></tr><tr><td>5. Bài học</td><td>90-100%</td><td>Bacon nhận lỗi, một câu bài học</td></tr></tbody></table></div>
+<ul><li>Hợp: tàng hình, biến khổng lồ, bố hóa em bé, đổi thân xác.</li><li>6-8 bối cảnh, tốn lượt tạo ảnh hơn A và C.</li><li>Hiệu ứng biến hình mô tả rõ: "glowing sparkles swirl around him".</li></ul>
+</div>
+<p class="mute">Công thức B (Bí ẩn và giải cứu) bên thẻ Mario vẫn dùng được cho chuyện virus, zombie hài.</p>
+</section>
+
+<h2 class="only-roblox" id="nhan-vat-rb">Tra cứu · Gia đình Roblox</h2>
+<section class="step only-roblox">
+<div class="tw"><table>
+<thead><tr><th>Thẻ</th><th>Vai · tính cách</th><th>Giọng cố định</th></tr></thead>
+<tbody><tr><td><code>@BACON</code></td><td>Anh trai ~10 tuổi, nhân vật chính; nghịch, tốt bụng, hay ghen với em</td><td>cheeky, energetic boyish</td></tr><tr><td><code>@LILY</code></td><td>Em gái ~6 tuổi; đáng yêu, mít ướt, hay mách mẹ</td><td>sweet, high-pitched girlish</td></tr><tr><td><code>@MOM</code></td><td>Mẹ; dịu dàng, bận rộn, nghiêm khi con sai</td><td>warm, caring motherly</td></tr><tr><td><code>@DAD</code></td><td>Bố; điềm tĩnh, hài hước, hay bận việc</td><td>calm, deep fatherly</td></tr><tr><td><code>@BABY</code></td><td>Em bé Max; chỉ cười, bập bẹ, hay gây rối</td><td>không nói</td></tr><tr><td><code>@NOOB</code></td><td>Bạn thân của Bacon; ngốc nghếch, trung thành, hài</td><td>goofy, cheerful boyish</td></tr></tbody></table></div>
+<p class="mute">Tên viết trong câu lệnh: Bacon, Lily, Mom, Dad, Baby Max, Noob. Nhân vật phụ theo tập (cô giáo, robot, bảo vệ) tự viết mô tả cùng kiểu "a blocky Roblox-style ...".</p>
+<div class="prompt"><div class="lab"><span>Câu lệnh tính cách · dán kèm khi viết kịch bản</span><button type="button" data-copy>Sao chép</button></div>
+<pre>BACON: Cheeky, energetic 10-year-old big brother and the main hero. Playful and kind-hearted, but jealous of his little sister and acts before he thinks. Body language: big grin, fast running, hands on hips when proud. When guilty: looks down, rubs the back of his head.
+
+LILY: Sweet 6-year-old little sister. Cute and emotional, cries easily, loves telling Mom when Bacon is naughty, secretly adores her brother. Body language: small hops, hugging her teddy bear, puppy eyes. When upset: pouting, arms crossed, teary eyes.
+
+MOM: Warm, caring and busy mother. Gentle but firm when the kids misbehave, always forgives. Body language: hands on hips when scolding, open arms for hugs.
+
+DAD: Calm, funny father who is often busy with work. Patient, gives short wise advice. Body language: adjusts his glasses, ruffles the kids' hair, warm laugh.
+
+BABY MAX: Curious baby brother who only giggles and babbles, often causes messes by accident.
+
+NOOB: Bacon's goofy best friend. Clumsy, loyal, always cheerful, tells silly jokes. Body language: big waving arms, trips over things, thumbs up.</pre></div>
+<h4>Mô tả ngoại hình (bắt buộc trong câu lệnh Muse, dán vào thư viện Flow)</h4>
+<div class="prompt"><div class="lab"><span>Mô tả ngoại hình · tiếng Anh</span><button type="button" data-copy>Sao chép</button></div>
+<pre>Bacon: a blocky Roblox-style boy with a light tan cylindrical head, messy wavy brown bacon hair swept to one side, big brown eyes, orange hoodie with a white lightning bolt on the chest, dark blue jeans, white sneakers
+Lily: a small blocky Roblox-style girl with a light cylindrical head, black hair in two round buns with pink ribbons, big round blue eyes, rosy cheeks, mint green dress with a white collar, pink shoes
+Mom: a blocky Roblox-style woman with a light cylindrical head, long brown hair in a high ponytail, green eyes, red cardigan over a white blouse, light blue jeans, white flats
+Dad: a tall blocky Roblox-style man with a light tan cylindrical head, short black hair, black rectangular glasses, short neat black beard, navy blue polo shirt, khaki pants, brown shoes
+Baby Max: a tiny blocky Roblox-style baby with a light cylindrical head, one curl of blond hair, big curious eyes, yellow onesie with a little duck print, blue pacifier
+Noob: a blocky Roblox-style boy with the classic default look: bright yellow cylindrical head and arms, plain blue torso, green legs, big goofy smile</pre></div>
+<h4>Bối cảnh cố định</h4>
+<div class="prompt"><div class="lab"><span>Bối cảnh · dán y nguyên sau "Setting:"</span><button type="button" data-copy>Sao chép</button></div>
+<pre>HOUSE: a bright two-story blocky suburban house with a white fence and a green lawn in a colorful Roblox-style town
+LIVING: a cozy living room with a gray sofa, a big TV, a wooden coffee table and toys on a soft rug
+KIDS: a kids' bedroom with two small beds, colorful posters, a toy box and a window with blue curtains
+KITCHEN: a bright kitchen with white cabinets, a fridge covered in kids' drawings and a round dining table
+SCHOOL: a colorful classroom with rows of small desks, a green chalkboard and big windows
+PARK: a sunny park playground with a red slide, swings and tall blocky trees
+MALL: a busy shopping mall with shiny floors, bright shop windows and an escalator
+STREET: a sunny town street with colorful blocky houses, a sidewalk and lamp posts
+(Ban đêm: thêm "at night, warm lamp light, dark blue sky" vào cuối)</pre></div>
+<h4>Phong cách cố định</h4>
+<div class="prompt"><div class="lab"><span>Phong cách Roblox · thay cho dòng phong cách 3D của Mario</span><button type="button" data-copy>Sao chép</button></div>
+<pre>3D Roblox-style animation, blocky toy-like characters with cylindrical heads and rectangular bodies, smooth glossy plastic materials, expressive cartoon faces with big eyes and eyebrows, bright saturated colors, soft clean lighting, shallow depth of field, 16:9 aspect ratio</pre></div>
+</section>
+
+<h2 class="only-roblox" id="dong-goi-rb">Tra cứu · Tiêu đề và ảnh bìa Roblox</h2>
+<section class="step only-roblox">
+<div class="tw"><table>
+<thead><tr><th>Nhóm chủ đề</th><th>Ví dụ của đối thủ</th><th>View</th></tr></thead>
+<tbody><tr><td>Truyện buồn, số phận</td><td>Unlucky Child, Poor Dog, The Hated Son</td><td>2-11 Tr</td></tr><tr><td>Anh em ghét nhau (làm thành loạt)</td><td>Bacon Hair Hates Little Sister 1-5</td><td>1,9-7,4 Tr</td></tr><tr><td>Bị đối xử bất công</td><td>Mom Only Loves Little Sister</td><td>tới 4,2 Tr</td></tr><tr><td>Thảm họa hài, zombie</td><td>Escape From Zombie Parents</td><td>2,6-24 Tr</td></tr><tr><td>Biến hình</td><td>Giant Bacon Hair, Dad Turned Into a Baby</td><td>170-320 N (gần đây)</td></tr><tr><td>Bài học nhẹ</td><td>Addicted to His Phone, Share Toys</td><td>240-380 N (gần đây)</td></tr></tbody></table></div>
+<ul>
+<li><b>Tiêu đề:</b> <code>Roblox Story: [xung đột ngắn 4-8 từ]</code>, có thể thêm "!?". Ví dụ: <i>Roblox Story: Bacon Feels Forgotten by Mom</i>.</li>
+<li><b>Ảnh bìa:</b> 2-3 nhân vật cận mặt, cảm xúc cực mạnh (giận, khóc, sốc), biểu tượng tim / dấu giận / dấu hỏi / nước mắt, nền sáng đơn giản, không chữ hoặc 1-2 từ.</li>
+<li><b>Làm loạt:</b> tập nào vượt view trung bình thì làm phần 2 ngay.</li>
+<li><b>Chế độ trẻ em:</b> nội dung này dành cho trẻ, phải bật đúng "dành cho trẻ em" (không có bình luận, thu nhập mỗi nghìn view thấp hơn).</li>
+</ul>
+</section>
+
+<h2 class="only-roblox" id="da-lam-rb">Tra cứu · Các tập Roblox đã làm</h2>
+<section class="step only-roblox">
+<p class="mute">Chưa có tập nào. Làm xong tập nào thì ghi tên, công thức, số cảnh vào đây để tránh lặp.</p>
+</section>
+
 <div class="risk">
-<p><b>Rủi ro bản quyền:</b> nhân vật Mario thuộc Nintendo, nên kênh có thể bị khiếu nại bản quyền, nhận gậy hoặc bị tắt kiếm tiền bất cứ lúc nào. Nhóm cần có phương án dự phòng cho kênh.</p>
+<p><b>Rủi ro bản quyền:</b> <span class="only-mario">nhân vật Mario thuộc Nintendo</span><span class="only-roblox">tên và phong cách Roblox thuộc Roblox Corporation</span>, nên kênh có thể bị khiếu nại bản quyền, nhận gậy hoặc bị tắt kiếm tiền bất cứ lúc nào. Nhóm cần có phương án dự phòng cho kênh.</p>
 <p><b>Nội dung trùng lặp:</b> chỉ học công thức, không chép cốt truyện, câu thoại, khung hình của đối thủ.</p>
 </div>
 </main>
@@ -727,21 +837,24 @@ Waluigi: a very tall thin man with a purple cap with a yellow inverted letter L,
 <script>
 document.addEventListener("click",e=>{
 const b=e.target.closest("[data-copy]");
-if(b){const pre=b.closest(".prompt").querySelector("pre");
+if(b){const pre=b.closest(".prompt").querySelector("pre");const txt=pre.innerText;
 const done=()=>{b.textContent="Đã sao chép";b.classList.add("ok");setTimeout(()=>{b.textContent="Sao chép";b.classList.remove("ok")},1400)};
 const sel=()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Đã chọn, nhấn Ctrl+C"};
-try{navigator.clipboard.writeText(pre.textContent).then(done,sel)}catch(x){sel()}return}
+try{navigator.clipboard.writeText(txt).then(done,sel)}catch(x){sel()}return}
 const t=e.target.closest('[role="tab"]');
 if(t){t.parentElement.querySelectorAll('[role="tab"]').forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on);const p=document.getElementById(x.getAttribute("aria-controls"));p.hidden=!on;p.style.display=on?"flex":""})}
 });
 const links=[...document.querySelectorAll('nav.toc a')];
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-20% 0px -70% 0px'});
 links.forEach(l=>{const t=document.querySelector(l.getAttribute('href'));if(t)io.observe(t)});
+const H=location.hash;let niche=/roblox/.test(H)?'roblox':'mario';
+function setHash(){try{history.replaceState(null,'','#'+(niche==='roblox'?'roblox-':'')+(document.body.dataset.mode==='manual'?'thu-cong':'claude-skill'))}catch(e){}}
 function setMode(m){document.body.dataset.mode=m;document.querySelectorAll('.mode button').forEach(b=>b.setAttribute('aria-selected',b.dataset.mode===m));
-document.querySelectorAll('.n[data-s]').forEach(n=>{n.textContent=m==='skill'?n.dataset.s:(n.dataset.m||n.dataset.s)});
-try{history.replaceState(null,'',m==='manual'?'#thu-cong':'#claude-skill')}catch(e){}}
+document.querySelectorAll('.n[data-s]').forEach(n=>{n.textContent=m==='skill'?n.dataset.s:(n.dataset.m||n.dataset.s)});setHash()}
+function setNiche(x){niche=x;document.body.dataset.niche=x;document.querySelectorAll('.niche button').forEach(b=>b.setAttribute('aria-selected',b.dataset.niche===x));setHash()}
 document.querySelectorAll('.mode button').forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
-setMode(location.hash==='#thu-cong'?'manual':'skill');
+document.querySelectorAll('.niche button').forEach(b=>b.addEventListener('click',()=>setNiche(b.dataset.niche)));
+document.body.dataset.niche=niche;setMode(/thu-cong/.test(H)?'manual':'skill');setNiche(niche);
 document.querySelectorAll('section.step').forEach(st=>{const h=st.querySelector(':scope>.step-head');if(!h)return;
 const body=document.createElement('div');body.className='step-body';[...st.children].filter(c=>c!==h).forEach(c=>body.appendChild(c));st.appendChild(body);
 const ch=document.createElement('span');ch.className='chev';ch.setAttribute('aria-hidden','true');ch.textContent='▾';h.appendChild(ch);
@@ -752,5 +865,4 @@ const setAll=open=>document.querySelectorAll('section.step').forEach(st=>{const 
 document.getElementById('openAll').onclick=()=>setAll(true);document.getElementById('closeAll').onclick=()=>setAll(false);
 document.querySelectorAll('nav.toc a').forEach(a=>a.addEventListener('click',()=>{const t=document.querySelector(a.getAttribute('href'));const st=t&&(t.closest('section.step')||t);if(st&&st.classList.contains('collapsed')){st.classList.remove('collapsed');const h=st.querySelector(':scope>.step-head');if(h)h.setAttribute('aria-expanded','true')}}));
 </script>
-</body>
-</html>
+</body></html>
